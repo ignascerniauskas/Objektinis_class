@@ -35,7 +35,8 @@ void duomenu_ivedimas(vector<studentas>& grupe){
     }
 }
 
-float Galutinis(const studentas& stud) {
+//galutinis pagal vidurki
+float apskaiciuotivid(const studentas& stud) {
     float vidurkis = 0;
     for (int pazymys : stud.paz) {
         vidurkis += pazymys;
@@ -44,12 +45,28 @@ float Galutinis(const studentas& stud) {
     return 0.4 * vidurkis + 0.6 * stud.egz;
 }
 
-void spausdinti(vector<studentas>& grupe){
+//galutinis pagal mediana
+float apskaiciuotimed(const studentas& stud) {
+    vector<int> sorted_paz = stud.paz;
+    sort(sorted_paz.begin(), sorted_paz.end());
+
+    int n = sorted_paz.size();
+    if (n % 2 == 0) {
+        int vidurys1 = sorted_paz[n / 2 - 1];
+        int vidurys2 = sorted_paz[n / 2];
+        return 0.4 * (vidurys1 + vidurys2) / 2.0 + 0.6 * stud.egz;
+    } else {
+        int vidurys = sorted_paz[n / 2];
+        return 0.4 * vidurys + 0.6 * stud.egz;
+    }
+}
+
+void spausdinti(vector<studentas>& grupe, bool naudotividurki){
     cout << left << setw(20) << "Pavarde" << setw(20) << "Vardas" << setw(20) << "Galutinis(Vid.)" << endl;
     cout << "------------------------------------------------" << endl;
 
     for (const auto& a : grupe) {
-        float galutinis = Galutinis(a);
+        float galutinis = naudotividurki ? apskaiciuotivid(a) : apskaiciuotimed(a);
         cout << setw(20) << a.pav << setw(20) << a.vard << setw(20) << fixed << setprecision(2) << galutinis << endl;
     }
 }
