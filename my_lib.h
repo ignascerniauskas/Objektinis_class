@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <iomanip>
+#include <algorithm>
 
 using std::cout;
 using std::string;
@@ -21,5 +22,6 @@ struct studentas {
 };
 
 void duomenu_ivedimas(vector<studentas>& grupe);
-float Galutinis(const studentas& stud);
-void spausdinti(vector<studentas>& grupe);
+float apskaiciuotivid(const studentas& stud);
+float apskaiciuotimed(const studentas& stud);
+void spausdinti(vector<studentas>& grupe, bool naudotividurki);
