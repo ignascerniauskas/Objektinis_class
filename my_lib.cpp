@@ -9,10 +9,15 @@ void duomenu_ivedimas(vector<studentas>& grupe){
     for (int j=0; j<stud_skaicius; j++){
         cout<<"Iveskite "<<j+1<<"-ojo studento varda ir pavarde: ";
         cin>>Laik.vard>>Laik.pav;
-        cout<<"Kiek paz. turi studentas? ";
-        int n;
-        cin>>n;
-        for (int i=0;i<n;i++){
+        
+        cout<<"Ar zinote studento namu darbu skaiciu? (T/N): ";
+        char atsakymas;
+        cin>>atsakymas;
+        if(atsakymas== 'T' || atsakymas== 't'){
+            cout<<"Kiek pazymiu turi studentas?: ";
+            int n;
+            cin>>n;
+            for (int i=0;i<n;i++){
                 int k;
                 cout<<"Iveskite "<<i+1<<" pazymi: ";
                 cin>>k;
@@ -22,7 +27,25 @@ void duomenu_ivedimas(vector<studentas>& grupe){
                         cin>>k;
                         Laik.paz.push_back(k);
                     }
+            }
         }
+        else {
+             cout << "Iveskite namu darbu rezultatus atskirtus tarpais (baigti su Enter): ";
+            int pazymys;
+            while (cin >> pazymys) {
+                if (pazymys >= 0 && pazymys <= 10) {
+                    Laik.paz.push_back(pazymys);
+                } else {
+                    cout << "Pazimys negalimas. Iveskite pazymi nuo 0 iki 10." << endl;
+                }
+                // ivedinejame, kol rasime naujos eilutes simboli '\n'
+                if (cin.peek() == '\n') {
+                    cin.ignore();
+                    break;
+                }
+            }
+        }
+        
         cout<<"Iveskite egzamina: ";
         cin>>Laik.egz;
         if(Laik.egz>=0 && Laik.egz<=10) grupe.push_back(Laik);
