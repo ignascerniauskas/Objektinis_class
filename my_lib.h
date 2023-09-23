@@ -3,6 +3,9 @@
 #include <vector>
 #include <iomanip>
 #include <algorithm>
+#include <cstdlib>
+#include <ctime>
+
 
 using std::cout;
 using std::string;
@@ -18,10 +21,13 @@ struct studentas {
   string vard, pav;
   vector <int> paz;
   int egz;
-  float rez;
+  float vidGalutinis;
+  float medGalutinis;
 };
 
 void duomenu_ivedimas(vector<studentas>& grupe);
 float apskaiciuotivid(const studentas& stud);
 float apskaiciuotimed(const studentas& stud);
 void spausdinti(vector<studentas>& grupe, bool naudotividurki);
+void generuotipazymius(studentas& stud);
+void generuotiegzamina(studentas& stud);
