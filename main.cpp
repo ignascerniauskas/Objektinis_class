@@ -2,6 +2,8 @@
 
 int main() {
 
+    srand(static_cast<unsigned>(time(0)));
+    
     vector<studentas> grupe;
     //duomenu ivedimas
     duomenu_ivedimas(grupe);
@@ -13,7 +15,7 @@ int main() {
     bool naudotividurki = (pasirinkimas=='V' || pasirinkimas=='v');
     
     //spausdinimas
-    spausdinti(grupe);
+    spausdinti(grupe, naudotividurki);
     return 0;
 }
 
