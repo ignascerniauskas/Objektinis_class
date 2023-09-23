@@ -11,7 +11,7 @@ int main() {
     //rodyti pagal vidurki ar mediana?
     char pasirinkimas;
     cout << "Jei norite naudoti vidurki, spauskite 'V' arba 'v', jei norite naudoti mediana spauskite 'M' arba 'm': ";
-    cin >> psairinkimas;
+    cin >> pasirinkimas;
     bool naudotividurki = (pasirinkimas=='V' || pasirinkimas=='v');
     
     //spausdinimas
