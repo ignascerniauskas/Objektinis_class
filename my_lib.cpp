@@ -4,6 +4,7 @@ void duomenu_ivedimas(vector<studentas>& grupe){
     int stud_skaicius;
     cout<<"Iveskite studentu skaiciu: ";
     cin>>stud_skaicius;
+    cout<<'\n';
 
     studentas Laik;
     for (int j=0; j<stud_skaicius; j++){
@@ -30,7 +31,14 @@ void duomenu_ivedimas(vector<studentas>& grupe){
             }
         }
         else {
-             cout << "Iveskite namu darbu rezultatus atskirtus tarpais (baigti su Enter): ";
+            cout<<"AR norite generuoti pazymius atsitiktine tvarka? (T/N): ";
+            char atsakymas;
+            cin>>atsakymas;
+            if(atsakymas=='T' || atsakymas=='t'){
+                generuotipazymius(Laik);
+            }
+            else{
+                 cout << "Iveskite namu darbu rezultatus atskirtus tarpais (baigti su Enter): ";
             int pazymys;
             while (cin >> pazymys) {
                 if (pazymys >= 0 && pazymys <= 10) {
@@ -44,18 +52,47 @@ void duomenu_ivedimas(vector<studentas>& grupe){
                     break;
                 }
             }
+            }
+           
         }
-        
-        cout<<"Iveskite egzamina: ";
-        cin>>Laik.egz;
-        if(Laik.egz>=0 && Laik.egz<=10) grupe.push_back(Laik);
-        else{
+
+        char ats;
+        cout<<"Ar zinote egzamino rezultata? (T/N): ";
+        cin>>ats;
+        if(ats=='T' || ats=='t'){
+            cout<<"Iveskite egzamina: ";
+            cin>>Laik.egz;
+            if(Laik.egz>=0 && Laik.egz<=10) grupe.push_back(Laik);
+            else{
                 cout<<"Egzamino reiksme negalima. Ivesite egzamina: ";
                 cin>>Laik.egz;
                 grupe.push_back(Laik);
             }
+        }else{
+            generuotiegzamina(Laik);
+            grupe.push_back(Laik);
+        }
+        
         Laik.paz.clear();
+        cout<<'\n';
     }
+}
+
+//atsitiktinis pazymiu generavimas
+void generuotipazymius(studentas& stud){
+    stud.paz.clear();
+    int pazymiuskaicius = rand(); //generuojama atsitiktiniu pazymiu skaicius
+    for (int i=0; i<pazymiuskaicius; i++){
+        int pazymys=rand() % 11; //generuojami pazymmiai nuo 0 iki 10
+        stud.paz.push_back(pazymys);
+    }
+    cout<<"  Pazymiai sugeneruoti atsitiktinai"<<endl;
+}
+
+//atsitiktinio egzamino rezultato generavimas
+void generuotiegzamina(studentas& stud){
+    stud.egz = rand() % 11; //generuojamas egzamino rezultatas nuo 0 iki 10
+    cout<<"  Egzamino rezultatas sugeneruotas atsitiktine tvarka"<<endl;
 }
 
 //galutinis pagal vidurki
