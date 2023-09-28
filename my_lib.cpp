@@ -1,6 +1,6 @@
 #include "my_lib.h";
 
-void duomenu_ivedimas(vector<studentas>& grupe){
+void duomenuIvedimas(vector<studentas>& grupe){
     int stud_skaicius;
     cout<<"Iveskite studentu skaiciu: ";
     cin>>stud_skaicius;
@@ -22,10 +22,10 @@ void duomenu_ivedimas(vector<studentas>& grupe){
                 int nd_sk;
                 cout<<"Iveskite namu darbu skaiciu: ";
                 cin>>nd_sk;
-                generuotipazymius1(Laik,nd_sk);
+                generuotiPazymius1(Laik,nd_sk);
             }
             else{
-                generuotipazymius(Laik);
+                generuotiPazymius(Laik);
             }
         }
         else {
@@ -60,11 +60,11 @@ void duomenu_ivedimas(vector<studentas>& grupe){
         cout<<"Ar norite egzamino rezultata generuoti atsitiktine tvarka? (T/N): ";
         cin>>ats;
         if(ats=='N' || ats=='n'){
-            cout<<"Iveskite egzamina: ";
+            cout<<"Iveskite egzamino rezultata: ";
             cin>>Laik.egz;
             grupe.push_back(Laik);
         }else{
-            generuotiegzamina(Laik);
+            generuotiEgzamina(Laik);
             grupe.push_back(Laik);
         }
         
@@ -74,21 +74,21 @@ void duomenu_ivedimas(vector<studentas>& grupe){
 }
 
 //atsitiktinis pazymiu generavimas
-void generuotipazymius(studentas& stud){
+void generuotiPazymius(studentas& stud){
     stud.paz.clear();
-    int pazymiuskaicius = rand() % 15; //generuojama nuo 0 iki 15 pazymiu
+    int pazymiuskaicius = rand() % 15 + 1; //generuojama nuo 0 iki 15 pazymiu
     for (int i=0; i<pazymiuskaicius; i++){
         int pazymys=rand() % 11; //generuojami pazymmiai nuo 0 iki 10
         stud.paz.push_back(pazymys);
     }
-    cout<<"  Pazymiai sugeneruoti atsitiktinai, jie yra: ";
+    cout<<pazymiuskaicius<<" pazymiai sugeneruoti atsitiktinai, jie yra: ";
     for (int pazymys : stud.paz) {
         cout<<pazymys<<" ";
     }
     cout<<'\n';
 }
 
-void generuotipazymius1(studentas& stud, int nd_sk) {
+void generuotiPazymius1(studentas& stud, int nd_sk) {
     stud.paz.clear();
     int pazymiuSkaicius=nd_sk;
     for (int i=0; i<pazymiuSkaicius; i++) {
@@ -104,13 +104,13 @@ void generuotipazymius1(studentas& stud, int nd_sk) {
 }
 
 //atsitiktinio egzamino rezultato generavimas
-void generuotiegzamina(studentas& stud){
+void generuotiEgzamina(studentas& stud){
     stud.egz = rand() % 11; //generuojamas egzamino rezultatas nuo 0 iki 10
-    cout << "  Egzamino rezultatas sugeneruotas atsitiktine tvarka, jis yra: " << stud.egz << endl;
+    cout << "Egzamino rezultatas sugeneruotas atsitiktine tvarka, jis yra: " << stud.egz << endl;
 }
 
 //galutinis pagal vidurki
-float apskaiciuotivid(const studentas& stud) {
+float apskaiciuotiVidurki(const studentas& stud) {
     float vidurkis = 0;
     for (int pazymys : stud.paz) {
         vidurkis += pazymys;
@@ -120,7 +120,7 @@ float apskaiciuotivid(const studentas& stud) {
 }
 
 //galutinis pagal mediana
-float apskaiciuotimed(const studentas& stud) {
+float apskaiciuotiMediana(const studentas& stud) {
     vector<int> sorted_paz = stud.paz;
     sort(sorted_paz.begin(), sorted_paz.end());
 
@@ -135,7 +135,7 @@ float apskaiciuotimed(const studentas& stud) {
     }
 }
 
-void spausdinti(vector<studentas>& grupe, bool naudotividurki){
+void rezultatuIsvendimasEkrane(vector<studentas>& grupe, bool naudotividurki){
     string kriterijus;
     if (naudotividurki){kriterijus="Galutinis(Vid.)";}
     else{kriterijus="Galutinis(Med.)";}
@@ -143,7 +143,7 @@ void spausdinti(vector<studentas>& grupe, bool naudotividurki){
     cout << "------------------------------------------------" << endl;
 
     for (const auto& a : grupe) {
-        float galutinis = naudotividurki ? apskaiciuotivid(a) : apskaiciuotimed(a);
+        float galutinis = naudotividurki ? apskaiciuotiVidurki(a) : apskaiciuotiMediana(a);
         cout << setw(20) << a.pav << setw(20) << a.vard << setw(20) << fixed << setprecision(2) << galutinis << endl;
     }
 }
