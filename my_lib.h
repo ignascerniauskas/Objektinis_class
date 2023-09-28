@@ -30,5 +30,5 @@ float apskaiciuotivid(const studentas& stud);
 float apskaiciuotimed(const studentas& stud);
 void spausdinti(vector<studentas>& grupe, bool naudotividurki);
 void generuotipazymius(studentas& stud);
-void generuotipazymius1(studentas& stud), int nd_sk;
+void generuotipazymius1(studentas& stud, int nd_sk);
 void generuotiegzamina(studentas& stud);
