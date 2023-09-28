@@ -25,10 +25,10 @@ struct studentas {
   float medGalutinis;
 };
 
-void duomenu_ivedimas(vector<studentas>& grupe);
-float apskaiciuotivid(const studentas& stud);
-float apskaiciuotimed(const studentas& stud);
-void spausdinti(vector<studentas>& grupe, bool naudotividurki);
-void generuotipazymius(studentas& stud);
-void generuotipazymius1(studentas& stud, int nd_sk);
-void generuotiegzamina(studentas& stud);
+void duomenuIvedimas(vector<studentas>& grupe);
+float apskaiciuotiVidurki(const studentas& stud);
+float apskaiciuotiMediana(const studentas& stud);
+void rezultatuIsvendimasEkrane(vector<studentas>& grupe, bool naudotividurki);
+void generuotiPazymius(studentas& stud);
+void generuotiPazymius1(studentas& stud, int nd_sk);
+void generuotiEgzamina(studentas& stud);
