@@ -3,10 +3,9 @@
 int main() {
 
     srand(static_cast<unsigned>(time(0)));
-    
     vector<studentas> grupe;
-    //duomenu ivedimas
-    duomenu_ivedimas(grupe);
+    
+    duomenuIvedimas(grupe);
 
     //rodyti pagal vidurki ar mediana?
     char pasirinkimas;
@@ -14,8 +13,8 @@ int main() {
     cin >> pasirinkimas;
     bool naudotividurki = (pasirinkimas=='V' || pasirinkimas=='v');
     
-    //spausdinimas
-    spausdinti(grupe, naudotividurki);
+    rezultatuIsvendimasEkrane(grupe, naudotividurki);
+    
     return 0;
 }
 
