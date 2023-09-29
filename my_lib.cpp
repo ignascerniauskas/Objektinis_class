@@ -135,6 +135,7 @@ float apskaiciuotiMediana(const studentas& stud) {
     }
 }
 
+//apskaiciuotu rezultatu isvedimas ekrane
 void rezultatuIsvendimasEkrane(vector<studentas>& grupe, bool naudotividurki){
     string kriterijus;
     if (naudotividurki){kriterijus="Galutinis(Vid.)";}
@@ -148,6 +149,7 @@ void rezultatuIsvendimasEkrane(vector<studentas>& grupe, bool naudotividurki){
     }
 }
 
+//failo skaitymas
 void skaitytiFaila(const std::string& failopav, std::vector<studentas>& grupe) {
     ifstream failas(failopav);
     if (!failas){
@@ -186,6 +188,7 @@ void skaitytiFaila(const std::string& failopav, std::vector<studentas>& grupe) {
     failas.close();
 }
 
+//apskaiciuotu rezultatu ivedimas faile
 void isvedimasFaile (vector<studentas>& grupe){
     ofstream f("rez.txt");
     f<<left<<setw(20)<<"Pavarde"<<setw(20)<<"Vardas"<<setw(20)<<"Galutinis(Vid.)"<<setw(20)<<"Galutinis(Med.)"<<endl;
@@ -197,6 +200,33 @@ void isvedimasFaile (vector<studentas>& grupe){
     }
     f.close();
 
+}
+
+//rusiavimas
+bool rikiavimas(const studentas& a, const studentas& b) {
+    size_t i = 0, j = 0;
+    while (i < a.vard.size() && j < b.vard.size()) {
+        if (isdigit(a.vard[i]) && isdigit(b.vard[j])) {
+            int numA = 0, numB = 0;
+            while (i < a.vard.size() && isdigit(a.vard[i])) {
+                numA = numA * 10 + (a.vard[i] - '0');
+                i++;
+            }
+            while (j < b.vard.size() && isdigit(b.vard[j])) {
+                numB = numB * 10 + (b.vard[j] - '0');
+                j++;
+            }
+            if (numA != numB)
+                return numA < numB;
+        }
+        else {
+            if (a.vard[i] != b.vard[j])
+                return a.vard[i] < b.vard[j];
+            i++;
+            j++;
+        }
+    }
+    return a.vard.size() < b.vard.size();
 }
 
 
