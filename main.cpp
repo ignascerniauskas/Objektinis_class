@@ -13,6 +13,7 @@ int main() {
         cout<<"Iveskite failo pavadinima: ";
         cin>>failoPavadinimas;
         skaitytiFaila(failoPavadinimas,grupe); //nuskaitome duomenis is failo
+        sort(grupe.begin(), grupe.end(), rikiavimas);//surikiuojame
         isvedimasFaile(grupe); //irasome rezultatus i faila 'rez.txt'
     }
     else{
