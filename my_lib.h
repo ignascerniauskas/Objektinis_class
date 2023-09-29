@@ -39,5 +39,6 @@ void generuotiPazymius1(studentas& stud, int nd_sk);
 void generuotiEgzamina(studentas& stud);
 void skaitytiFaila(const std::string& failopav, std::vector<studentas>& grupe);
 void isvedimasFaile (vector<studentas>& grupe);
+bool rikiavimas(const studentas& a, const studentas& b);
 
 
