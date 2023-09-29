@@ -226,7 +226,14 @@ bool rikiavimas(const studentas& a, const studentas& b) {
             j++;
         }
     }
-    return a.vard.size() < b.vard.size();
+     i = 0, j = 0;
+    while (i < a.pav.size() && j < b.pav.size()) {
+        if (a.pav[i] != b.pav[j])
+            return a.pav[i] < b.pav[j];
+        i++;
+        j++;
+    }
+    return a.vard.size() + a.pav.size() < b.vard.size() + b.pav.size();
 }
 
 
