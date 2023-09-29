@@ -13,21 +13,19 @@ int main() {
         cout<<"Iveskite failo pavadinima: ";
         cin>>failoPavadinimas;
         skaitytiFaila(failoPavadinimas,grupe); //nuskaitome duomenis is failo
+        isvedimasFaile(grupe); //irasome rezultatus i faila 'rez.txt'
     }
     else{
        cout<<'\n';
        duomenuIvedimas(grupe); //jei nenorime skaityti duomenu is failo duomenis ivedime
+       char pasirinkimas;
+       cout << "Jei norite naudoti vidurki, spauskite 'V' arba 'v', jei norite naudoti mediana spauskite 'M' arba 'm': ";
+       cin >> pasirinkimas;
+       bool naudotividurki = (pasirinkimas=='V' || pasirinkimas=='v');
+       rezultatuIsvendimasEkrane(grupe, naudotividurki);
 
     }
 
-    //rodyti pagal vidurki ar mediana?
-    char pasirinkimas;
-    cout << "Jei norite naudoti vidurki, spauskite 'V' arba 'v', jei norite naudoti mediana spauskite 'M' arba 'm': ";
-    cin >> pasirinkimas;
-    bool naudotividurki = (pasirinkimas=='V' || pasirinkimas=='v');
-    
-    rezultatuIsvendimasEkrane(grupe, naudotividurki);
-    
     return 0;
 }
 
