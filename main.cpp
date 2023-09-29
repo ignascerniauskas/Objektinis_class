@@ -5,7 +5,20 @@ int main() {
     srand(static_cast<unsigned>(time(0)));
     vector<studentas> grupe;
     
-    duomenuIvedimas(grupe);
+    char arSkaityti;
+    cout<<"Ar norite nuskaityti duomenis is failo? (T/N): ";//Pasirenkame, ar norime skaityti duomenis is failo
+    cin>>arSkaityti;
+    if(arSkaityti=='T' || arSkaityti=='t'){
+        string failoPavadinimas;
+        cout<<"Iveskite failo pavadinima: ";
+        cin>>failoPavadinimas;
+        skaitytiFaila(failoPavadinimas,grupe); //nuskaitome duomenis is failo
+    }
+    else{
+       cout<<'\n';
+       duomenuIvedimas(grupe); //jei nenorime skaityti duomenu is failo duomenis ivedime
+
+    }
 
     //rodyti pagal vidurki ar mediana?
     char pasirinkimas;
