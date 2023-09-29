@@ -19,6 +19,8 @@ using std::setw;
 using std::left;
 using std::cerr;
 using std::ifstream;
+using std::ofstream;
+
 
 struct studentas {
   string vard, pav;
@@ -36,4 +38,6 @@ void generuotiPazymius(studentas& stud);
 void generuotiPazymius1(studentas& stud, int nd_sk);
 void generuotiEgzamina(studentas& stud);
 void skaitytiFaila(const std::string& failopav, std::vector<studentas>& grupe);
+void isvedimasFaile (vector<studentas>& grupe);
+
 
