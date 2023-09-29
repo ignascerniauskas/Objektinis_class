@@ -147,3 +147,43 @@ void rezultatuIsvendimasEkrane(vector<studentas>& grupe, bool naudotividurki){
         cout << setw(20) << a.pav << setw(20) << a.vard << setw(20) << fixed << setprecision(2) << galutinis << endl;
     }
 }
+
+void skaitytiFaila(const std::string& failopav, std::vector<studentas>& grupe) {
+    ifstream failas(failopav);
+    if (!failas){
+        cerr<<"Klaida atidarant faila: "<< failopav<<endl;
+        return;
+    }
+
+    string stulpeliuPavadinimai;
+    getline(failas, stulpeliuPavadinimai);//perskaitome stulpeliu antrastes
+
+    studentas Laik;
+    string eilute;
+    while (std::getline(failas,eilute)){
+        std::istringstream iss(eilute);
+        iss>>Laik.pav>>Laik.vard;
+
+        int pazymys;
+        while (iss>>pazymys){
+            if (pazymys>=0 && pazymys<= 10){
+                Laik.paz.push_back(pazymys);
+            }
+            else{
+                cerr<<"Netinkamas pazymys: "<<pazymys<<endl;
+                return;
+            }
+        }
+
+        if (!Laik.paz.empty()){
+            //paskutinis skaicius yra egzamino rezultatas
+            Laik.egz=Laik.paz.back();
+            Laik.paz.pop_back(); //pasaliname egzamino rezultata is pazymiu
+            grupe.push_back(Laik);
+        }
+        Laik.paz.clear();
+    }
+    failas.close();
+}
+
+
