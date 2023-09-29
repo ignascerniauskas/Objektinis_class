@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <iomanip>
@@ -16,6 +17,8 @@ using std::fixed;
 using std::setprecision;
 using std::setw;
 using std::left;
+using std::cerr;
+using std::ifstream;
 
 struct studentas {
   string vard, pav;
@@ -32,3 +35,5 @@ void rezultatuIsvendimasEkrane(vector<studentas>& grupe, bool naudotividurki);
 void generuotiPazymius(studentas& stud);
 void generuotiPazymius1(studentas& stud, int nd_sk);
 void generuotiEgzamina(studentas& stud);
+void skaitytiFaila(const std::string& failopav, std::vector<studentas>& grupe);
+
