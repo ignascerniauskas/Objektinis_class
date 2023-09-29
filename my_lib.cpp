@@ -186,4 +186,18 @@ void skaitytiFaila(const std::string& failopav, std::vector<studentas>& grupe) {
     failas.close();
 }
 
+void isvedimasFaile (vector<studentas>& grupe){
+    ofstream f("rez.txt");
+    f<<left<<setw(20)<<"Pavarde"<<setw(20)<<"Vardas"<<setw(20)<<"Galutinis(Vid.)"<<setw(20)<<"Galutinis(Med.)"<<endl;
+    f<<"----------------------------------------------------------------------------"<<endl;
+    for (const auto& a : grupe) {
+        float galutinis1=apskaiciuotiVidurki(a);
+        float galutinis2=apskaiciuotiMediana(a);
+        f<<setw(20)<<a.pav<<setw(20)<<a.vard<<setw(20)<<fixed<<setprecision(2)<<galutinis1<<setw(20)<<fixed<<setprecision(2)<<galutinis2<<endl;
+    }
+    f.close();
+
+}
+
+
 
