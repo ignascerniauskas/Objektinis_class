@@ -1,102 +1,126 @@
 #include "my_lib.h";
 
-void duomenuIvedimas(vector<studentas>& grupe){
-int stud_skaicius;
-cout << "Iveskite studentu skaiciu: ";
-cin >> stud_skaicius;
-cout << '\n';
+void duomenuIvedimas(vector<studentas>& grupe) {
+    int stud_skaicius;
+    cout << "Iveskite studentu skaiciu: ";
+    cin >> stud_skaicius;
+    cout << '\n';
 
-studentas Laik;
-for (int j = 0; j < stud_skaicius; j++) {
-    cout << "Iveskite " << j + 1 << "-ojo studento varda ir pavarde: ";
-    cin >> Laik.vard >> Laik.pav;
+    studentas Laik;
+    for (int j = 0; j < stud_skaicius; j++) {
+        cout << "Iveskite " << j + 1 << "-ojo studento varda ir pavarde: ";
+        cin >> Laik.vard >> Laik.pav;
 
-    cout << "Ar norite namu darbu rezultatus generuoti atsitiktine tvarka? (T/N): ";
-    char atsakymas;
-    cin >> atsakymas;
-    if (atsakymas == 'T' || atsakymas == 't') {
-        char zinome;
-        cout << "Ar zinome studento namu darbu skaiciu? (T/N): ";
-        cin >> zinome;
-        try {
-            if (zinome == 'T' || zinome == 't') {
-                int nd_sk;
-                do {
-                    cout << "Iveskite namu darbu skaiciu: ";
-                    cin >> nd_sk;
-
-                    if (nd_sk <= 0) {
-                        cerr << "Klaida: Namu darbu skaicius negali buti "<<nd_sk<<". Iveskite teisinga skaiciu." << endl;
-                    }
-                } while (nd_sk <= 0);
-
-                generuotiPazymius1(Laik, nd_sk);
-            } else {
-                generuotiPazymius(Laik);
+        char atsakymas;
+        do {
+            cout << "Ar norite namu darbu rezultatus generuoti atsitiktine tvarka? (T/N): ";
+            cin >> atsakymas;
+            if (atsakymas != 'T' && atsakymas != 't' && atsakymas != 'N' && atsakymas != 'n') {
+                cerr << "Klaida: Ivesta netinkama reiksme. Iveskite 'T', 't', 'N' arba 'n'." << endl;
             }
-        } catch (const std::runtime_error& e) {
-            cerr << "Klaida: " << e.what() << endl;
-        }
-    } else {
-        cout << "Ar zinome studento namu darbu skaiciu? (T/N): ";
-        char zinome;
-        cin >> zinome;
-        if (zinome == 'T' || zinome == 't') {
-            int n;
+        } while (atsakymas != 'T' && atsakymas != 't' && atsakymas != 'N' && atsakymas != 'n');
+
+        if (atsakymas == 'T' || atsakymas == 't') {
+            char zinome;
             do {
-                cout << "Kiek pazymiu turi studentas?: ";
-                cin >> n;
-
-                if (n <= 0) {
-                    cerr << "Klaida: Pazymiu skaicius turi buti teigiamas skaicius." << endl;
+                cout << "Ar zinome studento namu darbu skaiciu? (T/N): ";
+                cin >> zinome;
+                if (zinome != 'T' && zinome != 't' && zinome != 'N' && zinome != 'n') {
+                    cerr << "Klaida: Ivesta netinkama reiksme. Iveskite 'T', 't', 'N' arba 'n'." << endl;
                 }
-            } while (n <= 0);
+            } while (zinome != 'T' && zinome != 't' && zinome != 'N' && zinome != 'n');
 
-            for (int i = 0; i < n; i++) {
-                int k;
-                cout << "Iveskite " << i + 1 << " pazymi: ";
-                cin >> k;
-                try {
-                    if (k < 0 || k > 10) {
-                        throw std::runtime_error("Pazimys turi buti nuo 0 iki 10");
-                    }
-                    Laik.paz.push_back(k);
-                } catch (const std::exception& e) {
-                    cerr << "Klaida: " << e.what() << endl;
-                    i--;
+            try {
+                if (zinome == 'T' || zinome == 't') {
+                    int nd_sk;
+                    do {
+                        cout << "Iveskite namu darbu skaiciu: ";
+                        cin >> nd_sk;
+
+                        if (nd_sk <= 0) {
+                            throw runtime_error("Klaida: Namu darbu skaicius turi buti teigiamas skaicius.");
+                        }
+                    } while (nd_sk <= 0);
+
+                    generuotiPazymius1(Laik, nd_sk);
+                } else {
+                    generuotiPazymius(Laik);
                 }
+            } catch (const runtime_error& e) {
+                cerr << "Klaida: " << e.what() << endl;
+                continue; // Pereiti prie kito studento įvedimo
             }
         } else {
-            cout << "Iveskite namu darbu rezultatus atskirtus tarpais (baigti su Enter): ";
-            int pazymys;
-            while (cin >> pazymys) {
-                try {
-                    if (pazymys < 0 || pazymys > 10) {
-                        throw std::runtime_error("Pazimys turi buti nuo 0 iki 10");
-                    }
-                    Laik.paz.push_back(pazymys);
-                } catch (const std::exception& e) {
-                    cerr << "Klaida: " << e.what() << endl;
+            char zinome;
+            do {
+                cout << "Ar zinome studento namu darbu skaiciu? (T/N): ";
+                cin >> zinome;
+                if (zinome != 'T' && zinome != 't' && zinome != 'N' && zinome != 'n') {
+                    cerr << "Klaida: Ivesta netinkama reiksme. Iveskite 'T', 't', 'N' arba 'n'." << endl;
                 }
-                if (cin.peek() == '\n') {
-                    cin.ignore();
-                    break;
+            } while (zinome != 'T' && zinome != 't' && zinome != 'N' && zinome != 'n');
+
+            if (zinome == 'T' || zinome == 't') {
+                int n;
+                do {
+                    cout << "Kiek pazymiu turi studentas?: ";
+                    cin >> n;
+
+                    if (n <= 0) {
+                        cerr << "Klaida: Pazymiu skaicius turi buti teigiamas skaicius." << endl;
+                    }
+                } while (n <= 0);
+
+                for (int i = 0; i < n; i++) {
+                    int k;
+                    cout << "Iveskite " << i + 1 << " pazymi: ";
+                    cin >> k;
+                    try {
+                        if (k < 0 || k > 10) {
+                            throw runtime_error("Klaida: Pazimys turi buti nuo 0 iki 10.");
+                        }
+                        Laik.paz.push_back(k);
+                    } catch (const exception& e) {
+                        cerr << "Klaida: " << e.what() << endl;
+                        i--;
+                    }
+                }
+            } else {
+                cout << "Iveskite namu darbu rezultatus atskirtus tarpais (baigti su Enter): ";
+                int pazymys;
+                while (cin >> pazymys) {
+                    try {
+                        if (pazymys < 0 || pazymys > 10) {
+                            throw runtime_error("Klaida: Pazimys turi buti nuo 0 iki 10.");
+                        }
+                        Laik.paz.push_back(pazymys);
+                    } catch (const exception& e) {
+                        cerr << "Klaida: " << e.what() << endl;
+                    }
+                    if (cin.peek() == '\n') {
+                        cin.ignore();
+                        break;
+                    }
                 }
             }
         }
-    }
 
-    char ats;
-    do {
-        cout << "Ar norite egzamino rezultata generuoti atsitiktine tvarka? (T/N): ";
-        cin >> ats;
+        char ats;
+        do {
+            cout << "Ar norite egzamino rezultata generuoti atsitiktine tvarka? (T/N): ";
+            cin >> ats;
+            if (ats != 'T' && ats != 't' && ats != 'N' && ats != 'n') {
+                cerr << "Klaida: Ivesta netinkama reiksme. Iveskite 'T', 't', 'N' arba 'n'." << endl;
+            }
+        } while (ats != 'T' && ats != 't' && ats != 'N' && ats != 'n');
+
         if (ats == 'N' || ats == 'n') {
             int egz_rezultatas;
             do {
                 cout << "Iveskite egzamino rezultata: ";
                 cin >> egz_rezultatas;
                 if (egz_rezultatas < 0 || egz_rezultatas > 10) {
-                    cerr << "Klaida: Egzamino rezultatas turi buti teigiamas skaicius." << endl;
+                    cerr << "Klaida: Egzamino rezultatas turi buti nuo 0 iki 10." << endl;
                 }
             } while (egz_rezultatas < 0 || egz_rezultatas > 10);
             Laik.egz = egz_rezultatas;
@@ -105,13 +129,10 @@ for (int j = 0; j < stud_skaicius; j++) {
             generuotiEgzamina(Laik);
             grupe.push_back(Laik);
         }
-    } while (Laik.egz < 0 || Laik.egz > 10);
 
-    Laik.paz.clear();
-    cout << '\n';
-}
-
-
+        Laik.paz.clear();
+        cout << '\n';
+    }
 }
 
 //atsitiktinis pazymiu generavimas
