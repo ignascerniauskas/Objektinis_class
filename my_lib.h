@@ -20,7 +20,8 @@ using std::left;
 using std::cerr;
 using std::ifstream;
 using std::ofstream;
-
+using std::runtime_error;
+using std::exception;
 
 struct studentas {
   string vard, pav;
