@@ -133,6 +133,11 @@ void duomenuIvedimas(vector<studentas>& grupe) {
         Laik.paz.clear();
         cout << '\n';
     }
+    for(auto& studentas: grupe){
+        apskaiciuotiMediana(studentas);
+        apskaiciuotiVidurki(studentas);
+
+    }
 }
 
 //atsitiktinis pazymiu generavimas
@@ -199,14 +204,15 @@ void rezultatuIsvendimasEkrane(vector<studentas>& grupe, bool naudotividurki){
     cout << left << setw(20) << "Pavarde" << setw(20) << "Vardas" << setw(20) << kriterijus << endl;
     cout << "------------------------------------------------" << endl;
 
-    for (const auto& a : grupe) {
-        float galutinis = naudotividurki ? apskaiciuotiVidurki(a) : apskaiciuotiMediana(a);
-        cout << setw(20) << a.pav << setw(20) << a.vard << setw(20) << fixed << setprecision(2) << galutinis << endl;
+    for (const auto& studentas : grupe) {
+        float galutinis = naudotividurki ? studentas.vidGalutinis : studentas.medGalutinis;
+        cout << setw(20) << studentas.pav << setw(20) << studentas.vard << setw(20) << fixed << setprecision(2) << galutinis << endl;
     }
 }
 
 //failo skaitymas
-void skaitytiFaila(const std::string& failopav, std::vector<studentas>& grupe) {
+void skaitytiFaila(const string& failopav, vector<studentas>& grupe) {
+    grupe.clear();
     ifstream failas(failopav);
     if (!failas){
         cerr<<"Klaida atidarant faila: "<< failopav<<endl;
@@ -241,18 +247,23 @@ void skaitytiFaila(const std::string& failopav, std::vector<studentas>& grupe) {
         }
         Laik.paz.clear();
     }
+    
+     for(auto& studentas : grupe){
+        apskaiciuotiVidurki(studentas);
+        apskaiciuotiMediana(studentas);
+    }
+    
     failas.close();
 }
 
 //apskaiciuotu rezultatu ivedimas faile
-void isvedimasFaile (vector<studentas>& grupe){
-    ofstream f("rez.txt");
-    f<<left<<setw(20)<<"Pavarde"<<setw(20)<<"Vardas"<<setw(20)<<"Galutinis(Vid.)"<<setw(20)<<"Galutinis(Med.)"<<endl;
+void isvedimasFaile (vector<studentas>& grupe, const string& failoPavadinimas){
+    ofstream f(failoPavadinimas);
+    f<<left<<setw(20)<<"Pavarde"<<setw(20)<<"Vardas"<<setw(20)<<"Galutinis(Vid.)"<<endl;
     f<<"----------------------------------------------------------------------------"<<endl;
-    for (const auto& a : grupe) {
-        float galutinis1=apskaiciuotiVidurki(a);
-        float galutinis2=apskaiciuotiMediana(a);
-        f<<setw(20)<<a.pav<<setw(20)<<a.vard<<setw(20)<<fixed<<setprecision(2)<<galutinis1<<setw(20)<<fixed<<setprecision(2)<<galutinis2<<endl;
+    for (auto& studentas : grupe) {
+        apskaiciuotiVidurki(studentas);
+        f<<setw(20)<<studentas.pav<<setw(20)<<studentas.vard<<setw(20)<<fixed<<setprecision(2)<<studentas.vidGalutinis<<endl;
     }
     f.close();
 
