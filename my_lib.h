@@ -22,6 +22,8 @@ using std::ifstream;
 using std::ofstream;
 using std::runtime_error;
 using std::exception;
+using std::pair;
+
 
 struct studentas {
   string vard, pav;
@@ -43,5 +45,6 @@ void skaitytiFaila(const string& failopav, vector<studentas>& grupe);
 void isvedimasFaile (vector<studentas>& grupe, const string& failoPavadinimas);
 bool rikiavimas(const studentas& a, const studentas& b);
 void irasytiIFaila(const vector<studentas>& grupe, const string& failoPavadinimas);
+pair<vector<studentas>, vector<studentas>> suskirstymas(vector<studentas>& grupe);
 
 
