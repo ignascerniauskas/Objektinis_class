@@ -314,8 +314,24 @@ void generuotiStudentuSarasa(vector<studentas>& grupe, int studentuSkaicius) {
         generuotiEgzamina(Laik);
         grupe.push_back(Laik);
     }
-
 }
 
+//studentu duomenu irasymo i failla funkcija
+void irasytiIFaila(const vector<studentas>& grupe, const string& failoPavadinimas) {
+    ofstream outFile(failoPavadinimas);
+    outFile<<left<<setw(17)<<"Pavarde"<<setw(17)<<"Vardas"<<setw(17)<<"ND1"<<setw(17)<<"ND2"<<setw(17)<<"ND3"<<setw(17)<<"ND4"<<setw(17)<<"ND5"<<setw(17)<<"Egz."<<endl;
+    if (outFile.is_open()) {
+        for (const auto& studentas : grupe) {
+            outFile<<setw(17)<<studentas.pav <<setw(17)<<studentas.vard<< setw(17);
+            for (int pazymys : studentas.paz) {
+                outFile <<setw(17)<< pazymys;
+            }
+            outFile <<setw(17)<< studentas.egz << endl;
+        }
+        outFile.close();
+    } else {
+        cout << "Nepavyko atidaryti failo " << failoPavadinimas << endl;
+    }
+}
 
 
