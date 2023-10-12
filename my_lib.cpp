@@ -347,3 +347,57 @@ pair<vector<studentas>, vector<studentas>> suskirstymas(vector<studentas>& grupe
     }
     return make_pair(varksiukai, moksliukai);
 }
+
+void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int stud_skaicius) {
+    auto pradziaGeneravimo = high_resolution_clock::now();
+    generuotiStudentuSarasa(grupe, stud_skaicius);
+    auto pabaigaGeneravimo = high_resolution_clock::now();
+    auto trukmeGeneravimo = duration<double>(pabaigaGeneravimo - pradziaGeneravimo);
+    cout <<std::to_string(stud_skaicius)<<" studentu generavimo laikas: " << trukmeGeneravimo.count() << " s" << endl;
+
+    irasytiIFaila(grupe, std::to_string(stud_skaicius)+"_"+failoPavadinimas);
+    isvedimasFaile(grupe,"rez_"+std::to_string(stud_skaicius)+"_"+failoPavadinimas);
+
+    auto pradziaBendras = high_resolution_clock::now();
+
+    auto pradziaNuskaitymas = high_resolution_clock::now();
+    skaitytiFaila(std::to_string(stud_skaicius)+"_"+failoPavadinimas, grupe);
+    auto pabaigaNuskaitymas = high_resolution_clock::now();
+    auto trukmeNuskaitymas = duration<double>(pabaigaNuskaitymas - pradziaNuskaitymas);
+    cout << "Failo " << std::to_string(stud_skaicius)+"_"+failoPavadinimas << " nuskaitymo laikas: " << trukmeNuskaitymas.count() << " s" << endl;
+
+    auto pradziaRikiavimas = high_resolution_clock::now();
+    sort(grupe.begin(), grupe.end(), rikiavimas);
+    auto pabaigaRikiavimas = high_resolution_clock::now();
+    auto trukmeRikiavimas = duration<double>(pabaigaRikiavimas - pradziaRikiavimas);
+    cout << "Rikiavimo laikas: " << trukmeRikiavimas.count() << " s" << endl;
+
+    auto pradziaSuskirstymas = high_resolution_clock::now();
+    pair<vector<studentas>, vector<studentas>> suskirstyti = suskirstymas(grupe);
+    auto pabaigaSuskirstymas = high_resolution_clock::now();
+    auto trukmeSuskirstymas = duration<double>(pabaigaSuskirstymas - pradziaSuskirstymas);
+    cout << "Suskirstyti studentus i dvi grupes laikas : " << trukmeSuskirstymas.count() << " s" << endl;
+
+
+    vector<studentas> varksiukai = suskirstyti.first;
+    vector<studentas> moksliukai = suskirstyti.second;
+
+    auto pradziaVarksiukai= high_resolution_clock::now();
+    isvedimasFaile(varksiukai, "varksiukai_"+std::to_string(stud_skaicius)+"_"+failoPavadinimas);
+    auto pabaigaVarksiukai = high_resolution_clock::now();
+    auto trukmeVarksiukai = duration<double>(pabaigaVarksiukai - pradziaVarksiukai);
+    cout << "Varksiuku studentu irasymo i faila laikas: "<< trukmeVarksiukai.count() << " s" << endl;
+
+    auto pradziaMoksliukai= high_resolution_clock::now();
+    isvedimasFaile(moksliukai, "moksliukai_" + std::to_string(stud_skaicius)+ "_"+ failoPavadinimas);
+    auto pabaigaMoksliukai = high_resolution_clock::now();
+    auto trukmeMoksliukai = duration<double>(pabaigaMoksliukai - pradziaMoksliukai);
+    cout << "Moksliuku studentu irasymo i faila laikas: "<< trukmeMoksliukai.count() << " s" << endl;
+
+
+    auto pabaigaBendras = high_resolution_clock::now();
+    auto trukmeBendras = duration<double>(pabaigaBendras-pradziaBendras) + trukmeGeneravimo;
+    cout<<'\n';
+    cout<<"Bendras darbo laikas prie failo: "<<trukmeBendras.count()<<" s"<<endl;
+    cout <<"-----------------------------------------------------------"<<endl;
+}
