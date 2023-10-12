@@ -156,33 +156,27 @@ void generuotiPazymius1(studentas& stud, int nd_sk) {
     for (int i=0; i<pazymiuSkaicius; i++) {
         int pazymys=rand() % 11; //generuojami pazymiai nuo 0 iki 10
         stud.paz.push_back(pazymys);
-        //cout<<pazymys<<" ";
     }
-    cout<<"Pazymiai sugeneruoti atsitiktinai, jie yra: ";
-    for (int pazymys : stud.paz) {
-        cout<<pazymys<<" ";
-    }
-    cout<<'\n';
+
 }
 
 //atsitiktinio egzamino rezultato generavimas
 void generuotiEgzamina(studentas& stud){
     stud.egz = rand() % 11; //generuojamas egzamino rezultatas nuo 0 iki 10
-    cout << "Egzamino rezultatas sugeneruotas atsitiktine tvarka, jis yra: " << stud.egz << endl;
-}
 
+}
 //galutinis pagal vidurki
-float apskaiciuotiVidurki(const studentas& stud) {
-    float vidurkis = 0;
+void apskaiciuotiVidurki(studentas& stud) {
+    float vidurkis=0;
     for (int pazymys : stud.paz) {
         vidurkis += pazymys;
     }
     vidurkis /= stud.paz.size();
-    return 0.4 * vidurkis + 0.6 * stud.egz;
+    stud.vidGalutinis = 0.4 * vidurkis + 0.6 * stud.egz;
 }
 
 //galutinis pagal mediana
-float apskaiciuotiMediana(const studentas& stud) {
+void apskaiciuotiMediana(studentas& stud) {
     vector<int> sorted_paz = stud.paz;
     sort(sorted_paz.begin(), sorted_paz.end());
 
@@ -190,10 +184,10 @@ float apskaiciuotiMediana(const studentas& stud) {
     if (n % 2 == 0) {
         int vidurys1 = sorted_paz[n / 2 - 1];
         int vidurys2 = sorted_paz[n / 2];
-        return 0.4 * (vidurys1 + vidurys2) / 2.0 + 0.6 * stud.egz;
+        stud.medGalutinis = 0.4 * (vidurys1 + vidurys2) / 2.0 + 0.6 * stud.egz;
     } else {
         int vidurys = sorted_paz[n / 2];
-        return 0.4 * vidurys + 0.6 * stud.egz;
+        stud.medGalutinis = 0.4 * vidurys + 0.6 * stud.egz;
     }
 }
 
