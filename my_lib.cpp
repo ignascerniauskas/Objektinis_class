@@ -334,4 +334,16 @@ void irasytiIFaila(const vector<studentas>& grupe, const string& failoPavadinima
     }
 }
 
-
+pair<vector<studentas>, vector<studentas>> suskirstymas(vector<studentas>& grupe) {
+    vector<studentas> moksliukai;
+    vector<studentas> varksiukai;
+    for (auto& studentas : grupe) {
+        if (studentas.vidGalutinis < 5) {
+            varksiukai.push_back(studentas);
+        }
+        else {
+            moksliukai.push_back(studentas);
+        }
+    }
+    return make_pair(varksiukai, moksliukai);
+}
