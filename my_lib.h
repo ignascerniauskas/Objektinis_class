@@ -42,5 +42,6 @@ void generuotiStudentuSarasa(vector<studentas>& grupe, int studentuSkaicius);
 void skaitytiFaila(const string& failopav, vector<studentas>& grupe);
 void isvedimasFaile (vector<studentas>& grupe, const string& failoPavadinimas);
 bool rikiavimas(const studentas& a, const studentas& b);
+void irasytiIFaila(const vector<studentas>& grupe, const string& failoPavadinimas);
 
 
