@@ -32,8 +32,8 @@ struct studentas {
 };
 
 void duomenuIvedimas(vector<studentas>& grupe);
-float apskaiciuotiVidurki(const studentas& stud);
-float apskaiciuotiMediana(const studentas& stud);
+void apskaiciuotiVidurki(studentas& stud);
+void apskaiciuotiMediana(studentas& stud);
 void rezultatuIsvendimasEkrane(vector<studentas>& grupe, bool naudotividurki);
 void generuotiPazymius(studentas& stud);
 void generuotiPazymius1(studentas& stud, int nd_sk);
