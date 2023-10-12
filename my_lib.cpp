@@ -303,5 +303,19 @@ bool rikiavimas(const studentas& a, const studentas& b) {
     return a.vard.size() + a.pav.size() < b.vard.size() + b.pav.size();
 }
 
+//skirtingo dydzio failo studentu duomenu generavimas
+void generuotiStudentuSarasa(vector<studentas>& grupe, int studentuSkaicius) {
+    grupe.clear();
+    for (int i = 0; i < studentuSkaicius; ++i) {
+        studentas Laik;
+        Laik.vard = "Vardas" + std::to_string(i + 1);
+        Laik.pav = "Pavarde" + std::to_string(i + 1);
+        generuotiPazymius1(Laik,5);
+        generuotiEgzamina(Laik);
+        grupe.push_back(Laik);
+    }
+
+}
+
 
 
