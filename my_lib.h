@@ -6,6 +6,9 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
+#include <chrono>
+
+using namespace std::chrono;
 
 
 using std::cout;
@@ -46,5 +49,8 @@ void isvedimasFaile (vector<studentas>& grupe, const string& failoPavadinimas);
 bool rikiavimas(const studentas& a, const studentas& b);
 void irasytiIFaila(const vector<studentas>& grupe, const string& failoPavadinimas);
 pair<vector<studentas>, vector<studentas>> suskirstymas(vector<studentas>& grupe);
+
+void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int stud_skaicius);
+
 
 
