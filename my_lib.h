@@ -46,11 +46,15 @@ void generuotiEgzamina(studentas& stud);
 void generuotiStudentuSarasa(vector<studentas>& grupe, int studentuSkaicius);
 void skaitytiFaila(const string& failopav, vector<studentas>& grupe);
 void isvedimasFaile (vector<studentas>& grupe, const string& failoPavadinimas);
-bool rikiavimas(const studentas& a, const studentas& b);
-void irasytiIFaila(const vector<studentas>& grupe, const string& failoPavadinimas);
-pair<vector<studentas>, vector<studentas>> suskirstymas(vector<studentas>& grupe);
 
-void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int stud_skaicius);
+bool rikiavimasVardas(const studentas& a, const studentas& b);
+bool rikiavimasPavarde(const studentas& a, const studentas& b);
+bool rikiavimasGalutinis(const studentas& a, const studentas& b);
+
+void irasytiIFaila(const vector<studentas>& grupe, const string& failoPavadinimas);
+void suskirstymas(vector<studentas>& grupe, vector<studentas>& moksliukai, vector<studentas>& varksiukai);
+
+void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int stud_skaicius,vector<studentas>& moksliukai, vector<studentas>& varksiukai);
 
 
 
