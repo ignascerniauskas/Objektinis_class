@@ -269,8 +269,7 @@ void isvedimasFaile (vector<studentas>& grupe, const string& failoPavadinimas){
 
 }
 
-//rusiavimas
-bool rikiavimas(const studentas& a, const studentas& b) {
+bool rikiavimasVardas(const studentas& a, const studentas& b) {
     size_t i = 0, j = 0;
     while (i < a.vard.size() && j < b.vard.size()) {
         if (isdigit(a.vard[i]) && isdigit(b.vard[j])) {
@@ -293,14 +292,37 @@ bool rikiavimas(const studentas& a, const studentas& b) {
             j++;
         }
     }
-     i = 0, j = 0;
+    return a.vard.size()< b.vard.size();
+}
+
+bool rikiavimasPavarde(const studentas& a, const studentas& b) {
+    size_t i = 0, j = 0;
     while (i < a.pav.size() && j < b.pav.size()) {
-        if (a.pav[i] != b.pav[j])
-            return a.pav[i] < b.pav[j];
-        i++;
-        j++;
+        if (isdigit(a.pav[i]) && isdigit(b.pav[j])) {
+            int numA = 0, numB = 0;
+            while (i < a.pav.size() && isdigit(a.pav[i])) {
+                numA = numA * 10 + (a.pav[i] - '0');
+                i++;
+            }
+            while (j < b.pav.size() && isdigit(b.pav[j])) {
+                numB = numB * 10 + (b.pav[j] - '0');
+                j++;
+            }
+            if (numA != numB)
+                return numA < numB;
+        }
+        else {
+            if (a.pav[i] != b.pav[j])
+                return a.pav[i] < b.pav[j];
+            i++;
+            j++;
+        }
     }
-    return a.vard.size() + a.pav.size() < b.vard.size() + b.pav.size();
+    return a.pav.size()< b.pav.size();
+}
+
+bool rikiavimasGalutinis(const studentas& a, const studentas& b) {
+    return a.vidGalutinis < b.vidGalutinis;
 }
 
 //skirtingo dydzio failo studentu duomenu generavimas
@@ -334,9 +356,9 @@ void irasytiIFaila(const vector<studentas>& grupe, const string& failoPavadinima
     }
 }
 
-pair<vector<studentas>, vector<studentas>> suskirstymas(vector<studentas>& grupe) {
-    vector<studentas> moksliukai;
-    vector<studentas> varksiukai;
+void suskirstymas(vector<studentas>& grupe, vector<studentas>& moksliukai, vector<studentas>& varksiukai) {
+    moksliukai.clear();
+    varksiukai.clear();
     for (auto& studentas : grupe) {
         if (studentas.vidGalutinis < 5) {
             varksiukai.push_back(studentas);
@@ -345,10 +367,9 @@ pair<vector<studentas>, vector<studentas>> suskirstymas(vector<studentas>& grupe
             moksliukai.push_back(studentas);
         }
     }
-    return make_pair(varksiukai, moksliukai);
 }
 
-void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int stud_skaicius) {
+void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int stud_skaicius, vector<studentas>& moksliukai, vector<studentas>& varksiukai) {
     auto pradziaGeneravimo = high_resolution_clock::now();
     generuotiStudentuSarasa(grupe, stud_skaicius);
     auto pabaigaGeneravimo = high_resolution_clock::now();
@@ -358,29 +379,36 @@ void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int 
     irasytiIFaila(grupe, std::to_string(stud_skaicius)+"_"+failoPavadinimas);
     isvedimasFaile(grupe,"rez_"+std::to_string(stud_skaicius)+"_"+failoPavadinimas);
 
-    auto pradziaBendras = high_resolution_clock::now();
-
     auto pradziaNuskaitymas = high_resolution_clock::now();
     skaitytiFaila(std::to_string(stud_skaicius)+"_"+failoPavadinimas, grupe);
     auto pabaigaNuskaitymas = high_resolution_clock::now();
     auto trukmeNuskaitymas = duration<double>(pabaigaNuskaitymas - pradziaNuskaitymas);
     cout << "Failo " << std::to_string(stud_skaicius)+"_"+failoPavadinimas << " nuskaitymo laikas: " << trukmeNuskaitymas.count() << " s" << endl;
 
+    cout<<"Pasirinkite rusiavimo tvarka: (Vardas-V/v, Pavarde-P/p, Galutinis balas- G/g)"<<endl;
+    char pasirinkimas;
+    cin>>pasirinkimas;
     auto pradziaRikiavimas = high_resolution_clock::now();
-    sort(grupe.begin(), grupe.end(), rikiavimas);
+    if('V' == toupper(pasirinkimas)){
+        sort(grupe.begin(), grupe.end(), rikiavimasVardas);
+    }
+    else if (toupper(pasirinkimas)== 'P'){
+        sort(grupe.begin(), grupe.end(), rikiavimasPavarde);
+    }
+    else if(toupper(pasirinkimas)=='G'){
+        sort(grupe.begin(), grupe.end(), rikiavimasGalutinis);
+    }
     auto pabaigaRikiavimas = high_resolution_clock::now();
     auto trukmeRikiavimas = duration<double>(pabaigaRikiavimas - pradziaRikiavimas);
     cout << "Rikiavimo laikas: " << trukmeRikiavimas.count() << " s" << endl;
 
+
     auto pradziaSuskirstymas = high_resolution_clock::now();
-    pair<vector<studentas>, vector<studentas>> suskirstyti = suskirstymas(grupe);
+    suskirstymas(grupe, moksliukai, varksiukai);
     auto pabaigaSuskirstymas = high_resolution_clock::now();
     auto trukmeSuskirstymas = duration<double>(pabaigaSuskirstymas - pradziaSuskirstymas);
     cout << "Suskirstyti studentus i dvi grupes laikas : " << trukmeSuskirstymas.count() << " s" << endl;
 
-
-    vector<studentas> varksiukai = suskirstyti.first;
-    vector<studentas> moksliukai = suskirstyti.second;
 
     auto pradziaVarksiukai= high_resolution_clock::now();
     isvedimasFaile(varksiukai, "varksiukai_"+std::to_string(stud_skaicius)+"_"+failoPavadinimas);
@@ -395,8 +423,7 @@ void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int 
     cout << "Moksliuku studentu irasymo i faila laikas: "<< trukmeMoksliukai.count() << " s" << endl;
 
 
-    auto pabaigaBendras = high_resolution_clock::now();
-    auto trukmeBendras = duration<double>(pabaigaBendras-pradziaBendras) + trukmeGeneravimo;
+    auto trukmeBendras = trukmeNuskaitymas+trukmeSuskirstymas+trukmeRikiavimas+trukmeMoksliukai+trukmeVarksiukai;
     cout<<'\n';
     cout<<"Bendras darbo laikas prie failo: "<<trukmeBendras.count()<<" s"<<endl;
     cout <<"-----------------------------------------------------------"<<endl;
