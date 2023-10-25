@@ -19,3 +19,9 @@ Testavimu laikas su std::list<>:
 | Moksliukų studentų įrašymas į failą | 0.0154889 s. | 0.0377556 s. | 0.3541831 s. | 3.8977149 s.  | 36.7836225 s.  |
 | Varkšiukų studentų įrašymas į failą | 0.0142214 s. | 0.0312423 s. | 0.3632089 s. | 3.2374803 s.  | 34.9812793 s.  |
 | Bendras darbo laikas                | 0.0546603 s. | 0.1993223 s. | 1.9050116 s. | 19.1671315 s. | 196.6814865 s. |
+
+
+Parametrai:
+CPU: Intel(R) Core(TM) i5-7200U CPU @ 2.50 GHz
+RAM: 12 GB
+SSD: Kingston SA400S37240G
