@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
+#include <list>
 #include <iomanip>
 #include <algorithm>
 #include <cstdlib>
@@ -25,36 +25,35 @@ using std::ifstream;
 using std::ofstream;
 using std::runtime_error;
 using std::exception;
-using std::pair;
 
 
 struct studentas {
   string vard, pav;
-  vector <int> paz;
+  list <int> paz;
   int egz;
   float vidGalutinis;
   float medGalutinis;
 };
 
-void duomenuIvedimas(vector<studentas>& grupe);
+void duomenuIvedimas(list<studentas>& grupe);
 void apskaiciuotiVidurki(studentas& stud);
 void apskaiciuotiMediana(studentas& stud);
-void rezultatuIsvendimasEkrane(vector<studentas>& grupe, bool naudotividurki);
+void rezultatuIsvendimasEkrane(list<studentas>& grupe, bool naudotividurki);
 void generuotiPazymius(studentas& stud);
 void generuotiPazymius1(studentas& stud, int nd_sk);
 void generuotiEgzamina(studentas& stud);
 void generuotiStudentuSarasa(vector<studentas>& grupe, int studentuSkaicius);
-void skaitytiFaila(const string& failopav, vector<studentas>& grupe);
-void isvedimasFaile (vector<studentas>& grupe, const string& failoPavadinimas);
+void skaitytiFaila(const string& failopav, list<studentas>& grupe);
+void isvedimasFaile (list<studentas>& grupe, const string& failoPavadinimas);
 
 bool rikiavimasVardas(const studentas& a, const studentas& b);
 bool rikiavimasPavarde(const studentas& a, const studentas& b);
 bool rikiavimasGalutinis(const studentas& a, const studentas& b);
 
-void irasytiIFaila(const vector<studentas>& grupe, const string& failoPavadinimas);
-void suskirstymas(vector<studentas>& grupe, vector<studentas>& moksliukai, vector<studentas>& varksiukai);
+void irasytiIFaila(const list<studentas>& grupe, const string& failoPavadinimas);
+void suskirstymas(list<studentas>& grupe, list<studentas>& moksliukai, list<studentas>& varksiukai);
 
-void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int stud_skaicius,vector<studentas>& moksliukai, vector<studentas>& varksiukai);
+void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int stud_skaicius,list<studentas>& moksliukai, list<studentas>& varksiukai);
 
 
 
