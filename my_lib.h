@@ -42,18 +42,16 @@ void rezultatuIsvendimasEkrane(list<studentas>& grupe, bool naudotividurki);
 void generuotiPazymius(studentas& stud);
 void generuotiPazymius1(studentas& stud, int nd_sk);
 void generuotiEgzamina(studentas& stud);
-void generuotiStudentuSarasa(vector<studentas>& grupe, int studentuSkaicius);
+void generuotiStudentuSarasa(list<studentas>& grupe, int studentuSkaicius);
 void skaitytiFaila(const string& failopav, list<studentas>& grupe);
 void isvedimasFaile (list<studentas>& grupe, const string& failoPavadinimas);
 
-bool rikiavimasVardas(const studentas& a, const studentas& b);
-bool rikiavimasPavarde(const studentas& a, const studentas& b);
-bool rikiavimasGalutinis(const studentas& a, const studentas& b);
+bool palyginti(const string& a, const string& b);
 
 void irasytiIFaila(const list<studentas>& grupe, const string& failoPavadinimas);
 void suskirstymas(list<studentas>& grupe, list<studentas>& moksliukai, list<studentas>& varksiukai);
 
-void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int stud_skaicius,list<studentas>& moksliukai, list<studentas>& varksiukai);
+void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int stud_skaicius,list<studentas>& moksliukai, list<studentas>& varksiukai, char pasirinkimas);
 
 
 
