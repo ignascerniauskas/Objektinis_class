@@ -204,12 +204,12 @@ void rezultatuIsvendimasEkrane(list<studentas>& grupe, bool naudotividurki){
     string kriterijus;
     if (naudotividurki){kriterijus="Galutinis(Vid.)";}
     else{kriterijus="Galutinis(Med.)";}
-    cout << left << setw(20) << "Pavarde" << setw(20) << "Vardas" << setw(20) << kriterijus << endl;
-    cout << "------------------------------------------------" << endl;
+    cout << left << setw(20) << "Pavarde" << setw(20) << "Vardas" << setw(20) << kriterijus << setw(20)<<"Vieta atmintyje" <<endl;
+    cout << "-----------------------------------------------------------------------------" << endl;
 
     for (const auto& studentas : grupe) {
         float galutinis = naudotividurki ? studentas.vidGalutinis : studentas.medGalutinis;
-        cout << setw(20) << studentas.pav << setw(20) << studentas.vard << setw(20) << fixed << setprecision(2) << galutinis << endl;
+        cout << setw(20) << studentas.pav << setw(20) << studentas.vard << setw(20) << fixed << setprecision(2) << galutinis<<setw(20)<<&studentas << endl;
     }
 }
 
