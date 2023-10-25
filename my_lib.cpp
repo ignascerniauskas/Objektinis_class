@@ -272,60 +272,31 @@ void isvedimasFaile (list<studentas>& grupe, const string& failoPavadinimas){
 
 }
 
-bool rikiavimasVardas(const studentas& a, const studentas& b) {
+bool palyginti(const string& a, const string& b) {
     size_t i = 0, j = 0;
-    while (i < a.vard.size() && j < b.vard.size()) {
-        if (isdigit(a.vard[i]) && isdigit(b.vard[j])) {
+    while (i < a.size() && j < b.size()) {
+        if (isdigit(a[i]) && isdigit(b[j])) {
             int numA = 0, numB = 0;
-            while (i < a.vard.size() && isdigit(a.vard[i])) {
-                numA = numA * 10 + (a.vard[i] - '0');
+            while (i < a.size() && isdigit(a[i])) {
+                numA = numA * 10 + (a[i] - '0');
                 i++;
             }
-            while (j < b.vard.size() && isdigit(b.vard[j])) {
-                numB = numB * 10 + (b.vard[j] - '0');
+            while (j < b.size() && isdigit(b[j])) {
+                numB = numB * 10 + (b[j] - '0');
                 j++;
             }
-            if (numA != numB)
+            if (numA != numB) {
                 return numA < numB;
-        }
-        else {
-            if (a.vard[i] != b.vard[j])
-                return a.vard[i] < b.vard[j];
+            }
+        } else {
+            if (a[i] != b[j]) {
+                return a[i] < b[j];
+            }
             i++;
             j++;
         }
     }
-    return a.vard.size()< b.vard.size();
-}
-
-bool rikiavimasPavarde(const studentas& a, const studentas& b) {
-    size_t i = 0, j = 0;
-    while (i < a.pav.size() && j < b.pav.size()) {
-        if (isdigit(a.pav[i]) && isdigit(b.pav[j])) {
-            int numA = 0, numB = 0;
-            while (i < a.pav.size() && isdigit(a.pav[i])) {
-                numA = numA * 10 + (a.pav[i] - '0');
-                i++;
-            }
-            while (j < b.pav.size() && isdigit(b.pav[j])) {
-                numB = numB * 10 + (b.pav[j] - '0');
-                j++;
-            }
-            if (numA != numB)
-                return numA < numB;
-        }
-        else {
-            if (a.pav[i] != b.pav[j])
-                return a.pav[i] < b.pav[j];
-            i++;
-            j++;
-        }
-    }
-    return a.pav.size()< b.pav.size();
-}
-
-bool rikiavimasGalutinis(const studentas& a, const studentas& b) {
-    return a.vidGalutinis < b.vidGalutinis;
+    return a.size() < b.size();
 }
 
 //skirtingo dydzio failo studentu duomenu generavimas
@@ -372,7 +343,7 @@ void suskirstymas(list<studentas>& grupe, list<studentas>& moksliukai, list<stud
     }
 }
 
-void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int stud_skaicius, list<studentas>& moksliukai, list<studentas>& varksiukai) {
+void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int stud_skaicius, list<studentas>& moksliukai, list<studentas>& varksiukai, char pasirinkimas) {
     auto pradziaGeneravimo = high_resolution_clock::now();
     generuotiStudentuSarasa(grupe, stud_skaicius);
     auto pabaigaGeneravimo = high_resolution_clock::now();
@@ -388,19 +359,17 @@ void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int st
     auto trukmeNuskaitymas = duration<double>(pabaigaNuskaitymas - pradziaNuskaitymas);
     cout << "Failo " << std::to_string(stud_skaicius)+"_"+failoPavadinimas << " nuskaitymo laikas: " << trukmeNuskaitymas.count() << " s" << endl;
 
-    cout<<"Pasirinkite rusiavimo tvarka: (Vardas-V/v, Pavarde-P/p, Galutinis balas- G/g)"<<endl;
-    char pasirinkimas;
-    cin>>pasirinkimas;
     auto pradziaRikiavimas = high_resolution_clock::now();
     if('V' == toupper(pasirinkimas)){
-        sort(grupe.begin(), grupe.end(), rikiavimasVardas);
+        grupe.sort([](const studentas& a, const studentas& b) {return palyginti(a.vard, b.vard);});
     }
     else if (toupper(pasirinkimas)== 'P'){
-        sort(grupe.begin(), grupe.end(), rikiavimasPavarde);
+        grupe.sort([](const studentas& a, const studentas& b) {return palyginti(a.pav, b.pav);});
     }
     else if(toupper(pasirinkimas)=='G'){
-        sort(grupe.begin(), grupe.end(), rikiavimasGalutinis);
+        grupe.sort([](const studentas& a, const studentas& b) {return a.vidGalutinis < b.vidGalutinis;});
     }
+
     auto pabaigaRikiavimas = high_resolution_clock::now();
     auto trukmeRikiavimas = duration<double>(pabaigaRikiavimas - pradziaRikiavimas);
     cout << "Rikiavimo laikas: " << trukmeRikiavimas.count() << " s" << endl;
