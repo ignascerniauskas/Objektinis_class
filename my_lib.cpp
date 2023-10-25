@@ -1,6 +1,6 @@
 #include "my_lib.h";
 
-void duomenuIvedimas(vector<studentas>& grupe) {
+void duomenuIvedimas(list<studentas>& grupe) {
     int stud_skaicius;
     cout << "Iveskite studentu skaiciu: ";
     cin >> stud_skaicius;
@@ -182,22 +182,25 @@ void apskaiciuotiVidurki(studentas& stud) {
 
 //galutinis pagal mediana
 void apskaiciuotiMediana(studentas& stud) {
-    vector<int> sorted_paz = stud.paz;
-    sort(sorted_paz.begin(), sorted_paz.end());
+    std::list<int> sorted_paz = stud.paz;
+    sorted_paz.sort();
 
     int n = sorted_paz.size();
+    auto iter = sorted_paz.begin();
+    std::advance(iter, n / 2);
+
     if (n % 2 == 0) {
-        int vidurys1 = sorted_paz[n / 2 - 1];
-        int vidurys2 = sorted_paz[n / 2];
+        int vidurys1 = *std::prev(iter);
+        int vidurys2 = *iter;
         stud.medGalutinis = 0.4 * (vidurys1 + vidurys2) / 2.0 + 0.6 * stud.egz;
     } else {
-        int vidurys = sorted_paz[n / 2];
+        int vidurys = *iter;
         stud.medGalutinis = 0.4 * vidurys + 0.6 * stud.egz;
     }
 }
 
 //apskaiciuotu rezultatu isvedimas ekrane
-void rezultatuIsvendimasEkrane(vector<studentas>& grupe, bool naudotividurki){
+void rezultatuIsvendimasEkrane(list<studentas>& grupe, bool naudotividurki){
     string kriterijus;
     if (naudotividurki){kriterijus="Galutinis(Vid.)";}
     else{kriterijus="Galutinis(Med.)";}
@@ -211,7 +214,7 @@ void rezultatuIsvendimasEkrane(vector<studentas>& grupe, bool naudotividurki){
 }
 
 //failo skaitymas
-void skaitytiFaila(const string& failopav, vector<studentas>& grupe) {
+void skaitytiFaila(const string& failopav, list<studentas>& grupe) {
     grupe.clear();
     ifstream failas(failopav);
     if (!failas){
@@ -257,7 +260,7 @@ void skaitytiFaila(const string& failopav, vector<studentas>& grupe) {
 }
 
 //apskaiciuotu rezultatu ivedimas faile
-void isvedimasFaile (vector<studentas>& grupe, const string& failoPavadinimas){
+void isvedimasFaile (list<studentas>& grupe, const string& failoPavadinimas){
     ofstream f(failoPavadinimas);
     f<<left<<setw(20)<<"Pavarde"<<setw(20)<<"Vardas"<<setw(20)<<"Galutinis(Vid.)"<<endl;
     f<<"----------------------------------------------------------------------------"<<endl;
@@ -326,7 +329,7 @@ bool rikiavimasGalutinis(const studentas& a, const studentas& b) {
 }
 
 //skirtingo dydzio failo studentu duomenu generavimas
-void generuotiStudentuSarasa(vector<studentas>& grupe, int studentuSkaicius) {
+void generuotiStudentuSarasa(list<studentas>& grupe, int studentuSkaicius) {
     grupe.clear();
     for (int i = 0; i < studentuSkaicius; ++i) {
         studentas Laik;
@@ -339,7 +342,7 @@ void generuotiStudentuSarasa(vector<studentas>& grupe, int studentuSkaicius) {
 }
 
 //studentu duomenu irasymo i failla funkcija
-void irasytiIFaila(const vector<studentas>& grupe, const string& failoPavadinimas) {
+void irasytiIFaila(const list<studentas>& grupe, const string& failoPavadinimas) {
     ofstream outFile(failoPavadinimas);
     outFile<<left<<setw(17)<<"Pavarde"<<setw(17)<<"Vardas"<<setw(17)<<"ND1"<<setw(17)<<"ND2"<<setw(17)<<"ND3"<<setw(17)<<"ND4"<<setw(17)<<"ND5"<<setw(17)<<"Egz."<<endl;
     if (outFile.is_open()) {
@@ -356,7 +359,7 @@ void irasytiIFaila(const vector<studentas>& grupe, const string& failoPavadinima
     }
 }
 
-void suskirstymas(vector<studentas>& grupe, vector<studentas>& moksliukai, vector<studentas>& varksiukai) {
+void suskirstymas(list<studentas>& grupe, list<studentas>& moksliukai, list<studentas>& varksiukai) {
     moksliukai.clear();
     varksiukai.clear();
     for (auto& studentas : grupe) {
@@ -369,7 +372,7 @@ void suskirstymas(vector<studentas>& grupe, vector<studentas>& moksliukai, vecto
     }
 }
 
-void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int stud_skaicius, vector<studentas>& moksliukai, vector<studentas>& varksiukai) {
+void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int stud_skaicius, list<studentas>& moksliukai, list<studentas>& varksiukai) {
     auto pradziaGeneravimo = high_resolution_clock::now();
     generuotiStudentuSarasa(grupe, stud_skaicius);
     auto pabaigaGeneravimo = high_resolution_clock::now();
