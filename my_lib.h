@@ -15,7 +15,7 @@ using std::cout;
 using std::string;
 using std::cin;
 using std::endl;
-using std::vector;
+using std::list;
 using std::fixed;
 using std::setprecision;
 using std::setw;
