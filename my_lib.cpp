@@ -343,16 +343,19 @@ void suskirstymas(list<studentas>& grupe, list<studentas>& moksliukai, list<stud
     }
 }
 
-void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int stud_skaicius, list<studentas>& moksliukai, list<studentas>& varksiukai, char pasirinkimas) {
-    auto pradziaGeneravimo = high_resolution_clock::now();
-    generuotiStudentuSarasa(grupe, stud_skaicius);
-    auto pabaigaGeneravimo = high_resolution_clock::now();
-    auto trukmeGeneravimo = duration<double>(pabaigaGeneravimo - pradziaGeneravimo);
-    cout <<std::to_string(stud_skaicius)<<" studentu generavimo laikas: " << trukmeGeneravimo.count() << " s" << endl;
+void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int stud_skaicius, list<studentas>& moksliukai, list<studentas>& varksiukai, char pasirinkimas, char generavimas) {
+    if(toupper(generavimas)=='T'){
+        auto pradziaGeneravimo = high_resolution_clock::now();
+        generuotiStudentuSarasa(grupe, stud_skaicius);
+        auto pabaigaGeneravimo = high_resolution_clock::now();
+        auto trukmeGeneravimo = duration<double>(pabaigaGeneravimo - pradziaGeneravimo);
+        cout <<std::to_string(stud_skaicius)<<" studentu generavimo laikas: " << trukmeGeneravimo.count() << " s" << endl;
 
-    irasytiIFaila(grupe, std::to_string(stud_skaicius)+"_"+failoPavadinimas);
-    isvedimasFaile(grupe,"rez_"+std::to_string(stud_skaicius)+"_"+failoPavadinimas);
+        irasytiIFaila(grupe, std::to_string(stud_skaicius)+"_"+failoPavadinimas);
+        isvedimasFaile(grupe,"rez_"+std::to_string(stud_skaicius)+"_"+failoPavadinimas);
 
+    }
+  
     auto pradziaNuskaitymas = high_resolution_clock::now();
     skaitytiFaila(std::to_string(stud_skaicius)+"_"+failoPavadinimas, grupe);
     auto pabaigaNuskaitymas = high_resolution_clock::now();
