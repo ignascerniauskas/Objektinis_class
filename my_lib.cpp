@@ -330,7 +330,7 @@ void irasytiIFaila(const list<studentas>& grupe, const string& failoPavadinimas)
     }
 }
 
-void suskirstymas(list<studentas>& grupe, list<studentas>& moksliukai, list<studentas>& varksiukai) {
+void suskirstymas1(list<studentas>& grupe, list<studentas>& moksliukai, list<studentas>& varksiukai) {
     moksliukai.clear();
     varksiukai.clear();
     for (auto& studentas : grupe) {
@@ -343,19 +343,39 @@ void suskirstymas(list<studentas>& grupe, list<studentas>& moksliukai, list<stud
     }
 }
 
-void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int stud_skaicius, list<studentas>& moksliukai, list<studentas>& varksiukai, char pasirinkimas, char generavimas) {
-    if(toupper(generavimas)=='T'){
-        auto pradziaGeneravimo = high_resolution_clock::now();
-        generuotiStudentuSarasa(grupe, stud_skaicius);
-        auto pabaigaGeneravimo = high_resolution_clock::now();
-        auto trukmeGeneravimo = duration<double>(pabaigaGeneravimo - pradziaGeneravimo);
-        cout <<std::to_string(stud_skaicius)<<" studentu generavimo laikas: " << trukmeGeneravimo.count() << " s" << endl;
+void suskirstymas2(list<studentas>& grupe, list<studentas>& varksiukai) {
+    for (auto it = grupe.begin(); it != grupe.end();) {
+        if (it->vidGalutinis < 5) {
+            varksiukai.push_back(*it);
+            it = grupe.erase(it);
+        } else {
+            ++it;
+        }
+    }
+}
 
-        irasytiIFaila(grupe, std::to_string(stud_skaicius)+"_"+failoPavadinimas);
-        isvedimasFaile(grupe,"rez_"+std::to_string(stud_skaicius)+"_"+failoPavadinimas);
+void suskirstymas3(list<studentas>& grupe, list<studentas>& varksiukai) {
+    std::copy_if(grupe.begin(), grupe.end(), std::back_inserter(varksiukai),
+                 [](const studentas& s) { return s.vidGalutinis < 5; });
+
+    grupe.erase(std::remove_if(grupe.begin(), grupe.end(),
+                               [](const studentas& s) { return s.vidGalutinis < 5; }),
+                grupe.end());
+}
+
+void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int stud_skaicius, list<studentas>& moksliukai, list<studentas>& varksiukai, char pasirinkimas, char generavimas, char strategija) {
+    if ('T'==toupper(generavimas)){
+    auto pradziaGeneravimo = high_resolution_clock::now();
+    generuotiStudentuSarasa(grupe, stud_skaicius);
+    auto pabaigaGeneravimo = high_resolution_clock::now();
+    auto trukmeGeneravimo = duration<double>(pabaigaGeneravimo - pradziaGeneravimo);
+    cout <<std::to_string(stud_skaicius)<<" studentu generavimo laikas: " << trukmeGeneravimo.count() << " s" << endl;
+
+    irasytiIFaila(grupe, std::to_string(stud_skaicius)+"_"+failoPavadinimas);
+    isvedimasFaile(grupe,"rez_"+std::to_string(stud_skaicius)+"_"+failoPavadinimas);
 
     }
-  
+
     auto pradziaNuskaitymas = high_resolution_clock::now();
     skaitytiFaila(std::to_string(stud_skaicius)+"_"+failoPavadinimas, grupe);
     auto pabaigaNuskaitymas = high_resolution_clock::now();
@@ -377,29 +397,43 @@ void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int st
     auto trukmeRikiavimas = duration<double>(pabaigaRikiavimas - pradziaRikiavimas);
     cout << "Rikiavimo laikas: " << trukmeRikiavimas.count() << " s" << endl;
 
-
+    auto trukmeMoksliukai = duration<double>(high_resolution_clock::now() - high_resolution_clock::now());
     auto pradziaSuskirstymas = high_resolution_clock::now();
-    suskirstymas(grupe, moksliukai, varksiukai);
+    if(strategija=='1'){
+        suskirstymas1(grupe, moksliukai, varksiukai);
+        auto pradziaMoksliukai= high_resolution_clock::now();
+        isvedimasFaile(moksliukai, "moksliukai_" + std::to_string(stud_skaicius) + "_" + failoPavadinimas);
+        auto pabaigaMoksliukai= high_resolution_clock::now();
+        auto trukmeMoksliukai = duration<double>(pabaigaMoksliukai - pradziaMoksliukai);
+    }
+    else if (strategija=='2'){
+        suskirstymas2(grupe, varksiukai);
+        auto pradziaMoksliukai= high_resolution_clock::now();
+        isvedimasFaile(grupe, "moksliukai_" + std::to_string(stud_skaicius) + "_" + failoPavadinimas);
+        auto pabaigaMoksliukai= high_resolution_clock::now();
+        auto trukmeMoksliukai = duration<double>(pabaigaMoksliukai - pradziaMoksliukai);
+    }
+    else if (strategija=='3'){
+        suskirstymas3(grupe, varksiukai);
+        auto pradziaMoksliukai= high_resolution_clock::now();
+        isvedimasFaile(grupe, "moksliukai_" + std::to_string(stud_skaicius) + "_" + failoPavadinimas);
+        auto pabaigaMoksliukai= high_resolution_clock::now();
+        auto trukmeMoksliukai = duration<double>(pabaigaMoksliukai - pradziaMoksliukai);
+    }
     auto pabaigaSuskirstymas = high_resolution_clock::now();
     auto trukmeSuskirstymas = duration<double>(pabaigaSuskirstymas - pradziaSuskirstymas);
     cout << "Suskirstyti studentus i dvi grupes laikas : " << trukmeSuskirstymas.count() << " s" << endl;
 
-
     auto pradziaVarksiukai= high_resolution_clock::now();
-    isvedimasFaile(varksiukai, "varksiukai_"+std::to_string(stud_skaicius)+"_"+failoPavadinimas);
+    isvedimasFaile(varksiukai, "varksiukai_" + std::to_string(stud_skaicius) + "_" + failoPavadinimas);
     auto pabaigaVarksiukai = high_resolution_clock::now();
     auto trukmeVarksiukai = duration<double>(pabaigaVarksiukai - pradziaVarksiukai);
     cout << "Varksiuku studentu irasymo i faila laikas: "<< trukmeVarksiukai.count() << " s" << endl;
-
-    auto pradziaMoksliukai= high_resolution_clock::now();
-    isvedimasFaile(moksliukai, "moksliukai_" + std::to_string(stud_skaicius)+ "_"+ failoPavadinimas);
-    auto pabaigaMoksliukai = high_resolution_clock::now();
-    auto trukmeMoksliukai = duration<double>(pabaigaMoksliukai - pradziaMoksliukai);
     cout << "Moksliuku studentu irasymo i faila laikas: "<< trukmeMoksliukai.count() << " s" << endl;
 
-
-    auto trukmeBendras = trukmeNuskaitymas+trukmeSuskirstymas+trukmeRikiavimas+trukmeMoksliukai+trukmeVarksiukai;
+    auto trukmeBendras = trukmeNuskaitymas+trukmeSuskirstymas+trukmeRikiavimas+trukmeVarksiukai+trukmeMoksliukai;
     cout<<'\n';
     cout<<"Bendras darbo laikas prie failo: "<<trukmeBendras.count()<<" s"<<endl;
     cout <<"-----------------------------------------------------------"<<endl;
 }
+
