@@ -13,17 +13,18 @@ int main() {
     cin>>arMatuoti;
     if(arMatuoti=='T' || arMatuoti=='t'){
     cout<<"Pasirinkite rusiavimo tvarka: (Vardas-V/v, Pavarde-P/p, Galutinis balas- G/g)"<<endl;
-    char pasirinkimas;
-    char generavimas;
+    char pasirinkimas, generavimas, strategija;
     cin>>pasirinkimas;
+    cout<<"Pasirinkite strategija (1,2 arba 3)"<<endl;
+    cin>>strategija;
     cout<<"Ar norite generuoti atsitiktinius rezultatus (ar naudoti jau esancius) (T/N): "<<endl;
     cin>>generavimas;
 
-    matuotiLaika("studentai.txt",grupe1000,1000,moksliukai,varksiukai,pasirinkimas,generavimas);
-    matuotiLaika("studentai.txt",grupe10000,10000,moksliukai, varksiukai, pasirinkimas,generavimas);
-    matuotiLaika("studentai.txt",grupe100000,100000,moksliukai,varksiukai, pasirinkimas,generavimas);
-    matuotiLaika("studentai.txt",grupe1000000,1000000,moksliukai,varksiukai, pasirinkimas,generavimas);
-    matuotiLaika("studentai.txt",grupe10000000,10000000,moksliukai,varksiukai, pasirinkimas,generavimas);
+    matuotiLaika("studentai.txt",grupe1000,1000,moksliukai,varksiukai,pasirinkimas,generavimas,strategija);
+    matuotiLaika("studentai.txt",grupe10000,10000,moksliukai, varksiukai, pasirinkimas,generavimas,strategija);
+    matuotiLaika("studentai.txt",grupe100000,100000,moksliukai,varksiukai, pasirinkimas,generavimas,strategija);
+    matuotiLaika("studentai.txt",grupe1000000,1000000,moksliukai,varksiukai, pasirinkimas,generavimas,strategija);
+    matuotiLaika("studentai.txt",grupe10000000,10000000,moksliukai,varksiukai, pasirinkimas,generavimas,strategija);
     }
     else{
        cout<<'\n';
@@ -35,7 +36,5 @@ int main() {
        rezultatuIsvendimasEkrane(grupe, naudotividurki);
     }
 
-
     return 0;
 }
-
