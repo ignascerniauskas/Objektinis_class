@@ -38,3 +38,38 @@ SSD: Kingston SA400S37240G
 | 1 strategija su Vector              | 0.0156205 s. | 0.0500919 s. | 0.4431161 s. | 4.2753459 s.  | 38.6643501 s.  |
 | 2 strategija su Vector              | 0.0110633 s. | 0.0378231 s. | 0.4228619 s. | 4.2102852 s.  | 35.0474373 s.  |
 | 3 strategija su Vector              | 0.0100884 s. | 0.0585626 s. | 0.4266371 s. | 4.0946211 s.  | 34.3562963 s.  |
+
+-------------------------------------------------------------------------------------------------------------------
+v0.1 release:
+
+Šioje versijoje yra apdorojami studentų duomenis. Duomenų pateikimas apdorojimui yra dviem būdais, pirmasis: naudotojas įveda duomenis pats, antrasis: duomenis yra nuskaitomi iš naudotojo pateikto failo. Vartotojui pasirinkus įvesti duomenis pačiam, yra galimybė duomenis generuoti atsitiktine tvarka. Taip pat jei nežinomas studento namų darbų skaičius, duomenis galima įvedinėti iki pirmo ‚Enter‘. Įvedus duomenis yra galimybė pasirinkti pagal ką skaičiuoti studento galutinį balą (vidurkį ar medianą). Duomenis įvedus naudotojui, rezultatas išvedamas į ekraną lentelės pavidalu (Vardas, Pavarde, Galutinis balas(pagal pasirinktą kriterijų)). Duomenis nuskaičius iš failo, rezultatas įrašomas į failą ‚rez.txt‘, kuriame yra studento: vardas, pavardė, galutinis balas pagal medianą ir vidurkį.
+
+Naudojimasis: Paleidus programa vartotojas pasirenka ar nori skaityti duomenis iš failo, jei taip – rezultatas apskaičiuojamas ir įrašomas į failą rez.txt. Jei nenorime skaityti duomenų iš failo, įvedame studentų skaičių. Tada apie kiekvieną studentą įvedame: vardą ir pavardę. Pasirenkame ar norime generuoti namų darbų rezultatus atsitiktine tvarka, jei taip įvedame studento namų darbų skaičių, nes teik atsitiktinių rezultatų bus sugeneruota. Jei nežinome namų darbų skaičiaus jis sugeneruojamas atsitiktinai. Jei generuoti rezultatų nenorime, įvedame studento namų darbų skaičių, ir kiekvieno namų darbo rezultatą, jei namų darbų skaičiaus nežinome įvedinėjame namų darbų rezultatus iki pirmo ‘Enter’. Galiausiai pasirenkame ar norime generuoti egzamino rezultatą atsitiktine tvarka, jei ne ji įvedame. Ir pasirenkame galutinio balo kriterijų (medianą arba vidurkį).
+
+v.02 release:
+
+Šioje versijoje yra sugeneruojami 5 skirtinų dydžių failai, kuriame yra informacija apie studentus: vardas, pavarde penki namų darbų rezultatai ir egzamino rezultatas. Kiekvieno dydžio sugeneruota studentų grupė yra įrašoma į ‚vector‘ tipo konteinerius, šie konteineriai yra įrašomi į failas (pvz.: 1000_studentai.txt). Apskaičiuojamas kiekvieno studento galutinis balas(pagal vidurkį), šie rezultatai yra įrašomi į failus (pvz.: rez_1000_studentai.txt). Tada kiekvieno failo studentai yra dalinami į dvi kategorijas ‚moksliukai‘ (galutinis balas>=5) ir ‚varksiukai‘ (galutinis balas<5). Padalinti studentai įrašomi į skirtingus failus (pvz.: moksliukai_1000_studentai.txt, varksiukai_1000_studentai.txt). Šiuose failuose esantis studentai yra išrikiuojami pagal vieną iš trijų naudotojo pasirinktų kriterijų (vardą, pavardę arba galutinį balą). Ir galiausiai yra matuojamas laikas: failų su skirtingų dydžių studentų grupėmis generavimas, šių studentų padalinimas į dvi grupes, ‚varksiuku‘ ir ‚moksliuku‘ įrašymo į failą, ir šių failų rikiavimo laikas.
+
+Naudojimasis: Paleidus programa yra generuojami skirtingų dydžių failai. Naudotojui reikia pasirinkti kokia tvarka jis nori, kad rezultatai būtų išrikiuoti failuose(v/V – pagal vardą, p/P - pagal pavardę, g/G – pagal galutinį balą) su ‚moksliuku‘ ir ‚varksiuku‘ vektoriais. Rezultatas - kiekvieno skirtingo dydžio failo darbo laikas t.y. kiek užtruko: generavimas(jei norime generuoti), nuskaitymas, rikiavimas, padalinimas į dvi grupes, grupių įrašymas į failus ir bendras darbo prie failo laikas.
+
+Išvados: darbo prie failų laikas yra proporcingas, kadangi failai didėja kas 10 kartų, taip pat ir laikas didėja kas 10 kartų.
+
+v.03 release:
+
+Šis releasas yra identiškas v.02 releasui tik čia vietoje ‚vector‘ yra naudojamas ‚list‘ ir pasirinktus duomenis apie studentą įvesti ranka, rodoma studento vieta kompiuterio atmintyje. Visą kitą yra tas pats kaip ir v.02 versijoje.
+
+Naudojimasis: paleidus programa vartotojas pasirenka ar nori matuoti laiką dirbant su skirtingo dydžio failais. Jei taip, jis turi pasirinkti: rušiavimo tvarką ir ar nori generuoti naujus failus, ar naudoti jau esamus. Rezultatas - kiekvieno skirtingo dydžio failo darbo laikas t.y. kiek užtruko: generavimas(jei norime generuoti), nuskaitymas, rikiavimas, padalinimas į dvi grupes, grupių įrašymas į failus ir bendras darbo prie failo laikas. Jei nenorime matuoti laiko, duomenis duomenis vartotojas įveda pats kaip ir v.01 versijoje, pateikiame galutinio balo rezultatus pagal naudotojo pasirinktą kriterijų (vidurkį ar medianą). Taip pat pateikiame kiekvieno studento saugojimo atmintyje nuorodą.
+
+Išvados: pakeitus vector į list, bendras darbo prie failo laikas išlieka labai panašus, tačiau list atvejų failo nuskaitymas yra lėtesnis, bet greičiau veikia rikiavimas pagal naudotojo pasirinktą parametrą.
+
+
+
+
+
+v.1 release:
+
+Šioje versijoje yra matuojamas laikas (kaip ir  v.02 ar v.03 versijose) list ir vector atvejais, priklausomai nuo studentų susiskirstymo į dvi grupes strategijos. Viso yra trys strategijos, lyginamas strategijų veikimo greitis, atminties naudojimas. Gauti rezultatai aprašyti lentelėje, ir pateikti nuotraukose.
+
+Naudojimasis: paleidus programa vartotojas pasirenka ar nori matuoti laiką dirbant su skirtingo dydžio failais. Jei taip, jis turi pasirinkti: rušiavimo tvarką, strategiją (1,2 arba 3) ir ar nori generuoti naujus failus, ar naudoti jau esamus. Rezultatas - kiekvieno skirtingo dydžio failo darbo laikas t.y. kiek užtruko: generavimas(jei norime generuoti), nuskaitymas, rikiavimas, padalinimas į dvi grupes, grupių įrašymas į failus ir bendras darbo prie failo laikas. Jei nenorime matuoti laiko, duomenis duomenis vartotojas įveda pats kaip ir v.01 versijoje, pateikiame galutinio balo rezultatus pagal naudotojo pasirinktą kriterijų (vidurkį ar medianą). Taip pat pateikiame kiekvieno studento saugojimo atmintyje nuorodą.
+
+Išvados: geriausiai vector ir list atvejų veikia 2 strategija. Pirmos strategijos laikas labai panašus, tačiau ji užima dagiau kompiuterio atminties. 3 strategija (patobulinta 2) veikia labai panašiai kaip antroji, šiek tiek greičiau. 
