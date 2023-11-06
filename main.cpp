@@ -1,4 +1,4 @@
-#include "mylib.h"
+#include "my_lib.h"
 
 int main() {
     srand(static_cast<unsigned>(time(0)));
