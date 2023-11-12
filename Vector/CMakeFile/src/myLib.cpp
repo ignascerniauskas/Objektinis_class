@@ -401,7 +401,7 @@ void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int 
     else if (strategija == '3') {
         suskirstymas3(grupe, varksiukai, moksliukai);
         auto pradziaMoksliukai = high_resolution_clock::now();
-        isvedimasFaile(grupe, "moksliukai_" + std::to_string(stud_skaicius) + "_" + failoPavadinimas);
+        isvedimasFaile(moksliukai, "moksliukai_" + std::to_string(stud_skaicius) + "_" + failoPavadinimas);
         auto pabaigaMoksliukai = high_resolution_clock::now();
         trukmeMoksliukai = duration<double>(pabaigaMoksliukai - pradziaMoksliukai);
     }
