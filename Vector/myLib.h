@@ -53,7 +53,7 @@ void irasytiIFaila(const vector<studentas>& grupe, const string& failoPavadinima
 
 void suskirstymas1(vector<studentas>& grupe, vector<studentas>& moksliukai, vector<studentas>& varksiukai);
 void suskirstymas2(vector<studentas>& grupe, vector<studentas>& varksiukai);
-void suskirstymas3(vector<studentas>& grupe, vector<studentas>& varksiukai);
+void suskirstymas3(vector<studentas>& grupe, vector<studentas>& varksiukai, vector<studentas>& moksliukai);
 
 void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int stud_skaicius,vector<studentas>& moksliukai, vector<studentas>& varksiukai, char pasirinkimas, char generavimas, char strategija);
 
