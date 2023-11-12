@@ -339,30 +339,15 @@ void suskirstymas1(vector<studentas>& grupe, vector<studentas>& moksliukai, vect
     }
 }
 
-void suskirstymas2(vector<studentas>& grupe, vector<studentas>& varksiukai, char pasirinkimas) {
-    auto partitionIt = std::partition(grupe.begin(), grupe.end(),
-        [](const studentas& s) { return s.vidGalutinis >= 5; });
-
-    std::move(partitionIt, grupe.end(), std::back_inserter(varksiukai));
-
-    grupe.erase(partitionIt, grupe.end());
-    if (toupper(pasirinkimas) == 'G')
-    {
-        std::sort(grupe.begin(), partitionIt,
-        [](const studentas& a, const studentas& b) { return a.vidGalutinis < b.vidGalutinis; });
-
-    std::sort(varksiukai.begin(), varksiukai.end(),
-        [](const studentas& a, const studentas& b) { return a.vidGalutinis < b.vidGalutinis; });
-    }
-    else if(toupper(pasirinkimas) == 'V')
-    {
-        std::sort(grupe.begin(), grupe.end(), [](const studentas& a, const studentas& b) { return palyginti(a.vard, b.vard); });
-        std::sort(varksiukai.begin(), varksiukai.end(), [](const studentas& a, const studentas& b) { return palyginti(a.vard, b.vard); });
-    }
-     else if(toupper(pasirinkimas) == 'P')
-    {
-        std::sort(grupe.begin(), grupe.end(), [](const studentas& a, const studentas& b) { return palyginti(a.pav, b.pav); });
-        std::sort(varksiukai.begin(), varksiukai.end(), [](const studentas& a, const studentas& b) { return palyginti(a.pav, b.pav); });
+void suskirstymas2(vector<studentas>& grupe, vector<studentas>& varksiukai) {
+    auto it = grupe.begin();
+    while (it != grupe.end()) {
+        if (it->vidGalutinis < 5) {
+            varksiukai.push_back(std::move(*it));
+            it = grupe.erase(it);
+        } else {
+            ++it;
+        }
     }
 }
 
@@ -419,7 +404,7 @@ void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int 
         trukmeMoksliukai = duration<double>(pabaigaMoksliukai - pradziaMoksliukai);
     }
     else if (strategija == '2') {
-        suskirstymas2(grupe, varksiukai,pasirinkimas);
+        suskirstymas2(grupe, varksiukai);
         auto pradziaMoksliukai = high_resolution_clock::now();
         isvedimasFaile(grupe, "moksliukai_" + std::to_string(stud_skaicius) + "_" + failoPavadinimas);
         auto pabaigaMoksliukai = high_resolution_clock::now();
