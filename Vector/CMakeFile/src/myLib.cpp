@@ -352,13 +352,15 @@ void suskirstymas2(vector<studentas>& grupe, vector<studentas>& varksiukai) {
 }
 
 
-void suskirstymas3(vector<studentas>& grupe, vector<studentas>& varksiukai) {
-    std::copy_if(grupe.begin(), grupe.end(), std::back_inserter(varksiukai),
-                 [](const studentas& s) { return s.vidGalutinis < 5; });
+void suskirstymas3(vector<studentas>& grupe, vector<studentas>& varksiukai, vector<studentai>& moksliukai) {
+    moksliukai.clear();
+    varksiukai.clear();
 
-    grupe.erase(std::remove_if(grupe.begin(), grupe.end(),
-                               [](const studentas& s) { return s.vidGalutinis < 5; }),
-                grupe.end());
+    auto partitionIt = std::partition(grupe.begin(), grupe.end(),
+        [](const studentas& s) { return s.vidGalutinis >=5; });
+
+    std::copy(grupe.begin(), partitionIt, std::back_inserter(moksliukai));
+    std::copy(partitionIt, grupe.end(), std::back_inserter(varksiukai));
 }
 
 
@@ -380,20 +382,6 @@ void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int 
     auto trukmeNuskaitymas = duration<double>(pabaigaNuskaitymas - pradziaNuskaitymas);
     cout << "Failo " << std::to_string(stud_skaicius) << "_" << failoPavadinimas << " nuskaitymo laikas: " << trukmeNuskaitymas.count() << " s" << endl;
 
-    auto pradziaRikiavimas = high_resolution_clock::now();
-    if ('V' == toupper(pasirinkimas)) {
-        std::sort(grupe.begin(), grupe.end(), [](const studentas& a, const studentas& b) { return palyginti(a.vard, b.vard); });
-    }
-    else if (toupper(pasirinkimas) == 'P') {
-        std::sort(grupe.begin(), grupe.end(), [](const studentas& a, const studentas& b) { return palyginti(a.pav, b.pav); });
-    }
-    else if (toupper(pasirinkimas) == 'G') {
-        std::sort(grupe.begin(), grupe.end(), [](const studentas& a, const studentas& b) { return a.vidGalutinis < b.vidGalutinis; });
-    }
-    auto pabaigaRikiavimas = high_resolution_clock::now();
-    auto trukmeRikiavimas = duration<double>(pabaigaRikiavimas - pradziaRikiavimas);
-    cout << "Rikiavimo laikas: " << trukmeRikiavimas.count() << " s" << endl;
-
     auto pradziaSuskirstymas = high_resolution_clock::now();
     auto trukmeMoksliukai = duration<double>(high_resolution_clock::now() - high_resolution_clock::now());
     if (strategija == '1') {
@@ -411,7 +399,7 @@ void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int 
         trukmeMoksliukai = duration<double>(pabaigaMoksliukai - pradziaMoksliukai);
     }
     else if (strategija == '3') {
-        suskirstymas3(grupe, varksiukai);
+        suskirstymas3(grupe, varksiukai, moksliukai);
         auto pradziaMoksliukai = high_resolution_clock::now();
         isvedimasFaile(grupe, "moksliukai_" + std::to_string(stud_skaicius) + "_" + failoPavadinimas);
         auto pabaigaMoksliukai = high_resolution_clock::now();
@@ -422,6 +410,23 @@ void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int 
     auto trukmeSuskirstymas = duration<double>(pabaigaSuskirstymas - pradziaSuskirstymas);
     cout << "Suskirstyti studentus i dvi grupes laikas : " << trukmeSuskirstymas.count() << " s" << endl;
 
+    auto pradziaRikiavimas = high_resolution_clock::now();
+    if ('V' == toupper(pasirinkimas)) {
+        std::sort(moksliukai.begin(), moksliukai.end(), [](const studentas& a, const studentas& b) { return palyginti(a.vard, b.vard); });
+        std::sort(varksiukai.begin(), varksiukai.end(), [](const studentas& a, const studentas& b) { return palyginti(a.vard, b.vard); });
+    }
+    else if (toupper(pasirinkimas) == 'P') {
+        std::sort(moksliukai.begin(), moksliukai.end(), [](const studentas& a, const studentas& b) { return palyginti(a.pav, b.pav); });
+        std::sort(varksiukai.begin(), varksiukai.end(), [](const studentas& a, const studentas& b) { return palyginti(a.pav, b.pav); });
+    }
+    else if (toupper(pasirinkimas) == 'G') {
+        std::sort(varksiukai.begin(), varksiukai.end(), [](const studentas& a, const studentas& b) { return a.vidGalutinis < b.vidGalutinis; });
+        std::sort(moksliukai.begin(), moksliukai.end(), [](const studentas& a, const studentas& b) { return a.vidGalutinis < b.vidGalutinis; });
+    }
+    auto pabaigaRikiavimas = high_resolution_clock::now();
+    auto trukmeRikiavimas = duration<double>(pabaigaRikiavimas - pradziaRikiavimas);
+    cout << "Rikiavimo laikas: " << trukmeRikiavimas.count() << " s" << endl;
+    
     auto pradziaVarksiukai = high_resolution_clock::now();
     isvedimasFaile(varksiukai, "varksiukai_" + std::to_string(stud_skaicius) + "_" + failoPavadinimas);
     auto pabaigaVarksiukai = high_resolution_clock::now();
