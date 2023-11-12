@@ -352,7 +352,7 @@ void suskirstymas2(vector<studentas>& grupe, vector<studentas>& varksiukai) {
 }
 
 
-void suskirstymas3(vector<studentas>& grupe, vector<studentas>& varksiukai) {
+void suskirstymas3(vector<studentas>& grupe, vector<studentas>& varksiukai, vector<studentai>& moksliukai) {
     moksliukai.clear();
     varksiukai.clear();
 
@@ -399,9 +399,9 @@ void matuotiLaika(const string& failoPavadinimas, vector<studentas>& grupe, int 
         trukmeMoksliukai = duration<double>(pabaigaMoksliukai - pradziaMoksliukai);
     }
     else if (strategija == '3') {
-        suskirstymas3(grupe, varksiukai);
+        suskirstymas3(moksliukai, varksiukai, moksliukai);
         auto pradziaMoksliukai = high_resolution_clock::now();
-        isvedimasFaile(grupe, "moksliukai_" + std::to_string(stud_skaicius) + "_" + failoPavadinimas);
+        isvedimasFaile(moksliukai, "moksliukai_" + std::to_string(stud_skaicius) + "_" + failoPavadinimas);
         auto pabaigaMoksliukai = high_resolution_clock::now();
         trukmeMoksliukai = duration<double>(pabaigaMoksliukai - pradziaMoksliukai);
     }
