@@ -84,12 +84,12 @@ v1.1 versija
 Testavimu laikas su list<>:
 | Testavimas                          | 100000       | 1000000        | 
 |-------------------------------------|--------------|----------------|
-| Failo nuskaitymas                   | 1.3271412 s. | 13.3754152 s.  |
-| Rūšiavimas                          | 0.1002418 s. | 1.2525672 s.   | 
-| Padalinimas į dvi grupes            | 0.1692366 s. | 1.3499539 s    | 
-| Moksliukų studentų įrašymas į failą | 0.4539731 s. | 4.4668949 s.   | 
-| Varkšiukų studentų įrašymas į failą | 0.4197659 s. | 4.2186148 s.   | 
-| Bendras darbo laikas                | 2.4703586 s. | 24.6534463 s.  | 
+| Failo nuskaitymas                   | 0.9709617 s. | 9.8931754 s.   |
+| Rūšiavimas                          | 0.1002418 s. | 1.1525672 s.   | 
+| Padalinimas į dvi grupes            | 0.1392366 s. | 1.3499539 s    | 
+| Moksliukų studentų įrašymas į failą | 0.3139731 s. | 3.2138949 s.   | 
+| Varkšiukų studentų įrašymas į failą | 0.3097659 s. | 3.1138548 s.   | 
+| Bendras darbo laikas                | 1.8341791 s. | 18.723446 s.   | 
 
 
 Testavimu laikas su list<class_studentas>:
