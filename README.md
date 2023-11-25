@@ -77,3 +77,17 @@ v.1 release:
 Naudojimasis: paleidus programa vartotojas pasirenka ar nori matuoti laiką dirbant su skirtingo dydžio failais. Jei taip, jis turi pasirinkti: rušiavimo tvarką, strategiją (1,2 arba 3) ir ar nori generuoti naujus failus, ar naudoti jau esamus. Rezultatas - kiekvieno skirtingo dydžio failo darbo laikas t.y. kiek užtruko: generavimas(jei norime generuoti), nuskaitymas, rikiavimas, padalinimas į dvi grupes, grupių įrašymas į failus ir bendras darbo prie failo laikas. Jei nenorime matuoti laiko, duomenis duomenis vartotojas įveda pats kaip ir v.01 versijoje, pateikiame galutinio balo rezultatus pagal naudotojo pasirinktą kriterijų (vidurkį ar medianą). Taip pat pateikiame kiekvieno studento saugojimo atmintyje nuorodą.
 
 Išvados: list atvejų veikia 2 strategija, vector atveju pirmoji. Akivizadu, kad tai geriausiai matosi dirbant su dideliais failais. Pirmos strategijos (list aveju) laikas labai panašus, tačiau ji užima dagiau kompiuterio atminties, vector atveju 2 strategeija veikia labai ilgai. 3 strategija (list atveju patobulinta 2) veikia labai panašiai kaip antroji, šiek tiek greičiau, tačiau vector atveju 3 strategija veikia žymiai greičiau nei 2. Lyginant 2 ir trečią atrategijas, vector atveju 2 startegja veikia lečiauu, taip pat ji užima mažiau komiuterio atminties (tai labiausiai pasimato dirbant su dideliais failais), 2 strategja list atveju veikia greičiau nei 1 tačiau ne visais atvejais (kalbant apie failų dydžius). Taigi bendrai gauname kad trečia strategija yra optimaliausia, nes ji užima kompiuterio atminties panačiai kaip 2 ir ji veikia greičiausiai.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+v1.1 versija 
+
+Testavimu laikas su list<>:
+| Testavimas                          | 100000       | 1000000        | 
+|-------------------------------------|--------------|----------------|
+| Failo nuskaitymas                   | 1.3271412 s. | 13.3754152 s.  |
+| Rūšiavimas                          | 0.1002418 s. | 1.2525672 s.   | 
+| Padalinimas į dvi grupes            | 0.1692366 s. | 1.3499539 s    | 
+| Moksliukų studentų įrašymas į failą | 0.4539731 s. | 4.4668949 s.   | 
+| Varkšiukų studentų įrašymas į failą | 0.4197659 s. | 4.2186148 s.   | 
+| Bendras darbo laikas                | 2.4703586 s. | 24.6534463 s.  | 
+
