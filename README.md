@@ -91,3 +91,42 @@ Testavimu laikas su list<>:
 | Varkšiukų studentų įrašymas į failą | 0.4197659 s. | 4.2186148 s.   | 
 | Bendras darbo laikas                | 2.4703586 s. | 24.6534463 s.  | 
 
+
+Testavimu laikas su list<class_studentas>:
+| Testavimas                          | 100000       | 1000000       |
+|-------------------------------------|--------------|---------------|
+| Failo nuskaitymas                   | 1.2884496 s. | 11.060454 s.  | 
+| Rūšiavimas                          | 0.1258628 s. | 1.2965262 s.  |
+| Padalinimas į dvi grupes            | 0.2012581 s. | 2.1337166 s   | 
+| Moksliukų studentų įrašymas į failą | 0.3517933 s. | 3.5468523 s.  | 
+| Varkšiukų studentų įrašymas į failą | 0.3620569 s. | 3.7641350 s.  |
+| Bendras darbo laikas                | 2.3594207 s. | 22.8016841 s. | 
+
+Testavimas priklausomai nuo kompiliatoriaus optimizavimo lygio su list<>:
+| Testavimas                          | 100000   O1  | 100000   O2  | 100000   O3  | 1000000   O1  | 1000000   O2  | 1000000   O3  |    
+|-------------------------------------|--------------|--------------|--------------|---------------|---------------|---------------|
+| Failo nuskaitymas                   | 0.9248728 s. | 0.8859983 s. | 0.8774871 s. | 9.7220492 s.  | 9.5649781 s.  | 9.2619914 s.  |               
+| Rūšiavimas                          | 0.1159244 s. | 0.1002451 s. | 0.1007639 s. | 1.2451912 s.  | 1.2662673 s.  | 1.2566871 s.  |               
+| Padalinimas į dvi grupes            | 0.1315223 s. | 0.1315266 s. | 0.1315294 s. | 1.4257791 s   | 1.3728297 s.  | 1.3921572 s.  |               
+| Moksliukų studentų įrašymas į failą | 0.3495868 s. | 0.3320342 s. | 0.3164418 s. | 3.1859782 s.  | 3.8924912 s.  | 3.2724891 s.  |        
+| Varkšiukų studentų įrašymas į failą | 0.3675922 s. | 0.3510771 s. | 0.3254559 s. | 3.7919923 s.  | 3.7647915 s.  | 3.8539692 s.  |        
+| Bendras darbo laikas                | 1.8894985 s. | 1.8000881 s. | 1.7516781 s. | 19.370991 s.  | 19.861357 s.  | 19.037294 s.  |     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
