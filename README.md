@@ -123,7 +123,7 @@ Testavimas priklausomai nuo kompiliatoriaus optimizavimo lygio su list<class_stu
 | Bendras darbo laikas                | 1.4358484 s. | 14.963271 s. | 1.3534229 s. | 13.735973 s.  | 1.3257223 s.  | 13.577157 s.  |     
 
 
-class prieš naudojant flag'us 535 KB
+class prieš naudojant flag'us 535 KB;
 list prieš naudojant flag'us 511 KB
 
 .exe failų dydžiai:
