@@ -46,6 +46,8 @@ public:
     istream& readstudentas(istream&);
     void clearPazymiai() { paz.clear(); }
 
+    ~studentas(){}
+    
     // seterei
     void setVard(const string& v) { vard = v; }
     void setPav(const string& p) { pav = p; }
