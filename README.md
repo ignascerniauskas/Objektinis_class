@@ -112,7 +112,15 @@ Testavimas priklausomai nuo kompiliatoriaus optimizavimo lygio su list<>:
 | Varkšiukų studentų įrašymas į failą | 0.3675922 s. | 0.3510771 s. | 0.3254559 s. | 3.7919923 s.  | 3.7647915 s.  | 3.8539692 s.  |        
 | Bendras darbo laikas                | 1.8894985 s. | 1.8000881 s. | 1.7516781 s. | 19.370991 s.  | 19.861357 s.  | 19.037294 s.  |     
 
-
+Testavimas priklausomai nuo kompiliatoriaus optimizavimo lygio su list<class_studentas>:
+| Testavimas                          | 100000   O1  | 100000   O2  | 100000   O3  | 1000000   O1  | 1000000   O2  | 1000000   O3  |    
+|-------------------------------------|--------------|--------------|--------------|---------------|---------------|---------------|
+| Failo nuskaitymas                   | 0.9495464 s. | 0.9176093 s. | 0.9430196 s. | 10.341484 s.  | 9.8304332 s.  | 11.060454 s.  |               
+| Rūšiavimas                          | 0.1002461 s. | 0.1002781 s. | 0.1012083 s. | 1.3327568 s.  | 1.3957332 s.  | 1.4634987 s.  |               
+| Padalinimas į dvi grupes            | 0.1627332 s. | 0.1849779 s. | 0.1819430 s. | 2.1001523 s   | 1.9833082 s.  | 2.1140391 s.  |               
+| Moksliukų studentų įrašymas į failą | 0.3008367 s. | 0.3018481 s. | 0.3015844 s. | 3.0564631 s.  | 3.0936181 s.  | 3.1645491 s.  |        
+| Varkšiukų studentų įrašymas į failą | 0.3007561 s. | 0.3027637 s. | 0.2954351 s. | 3.6752592 s.  | 3.6156418 s.  | 3.5321354 s.  |        
+| Bendras darbo laikas                | 1.8242281 s. | 1.8074771 s. | 1.8231904 s. | 20.506115 s.  | 19.918734 s.  | 20.334676 s.  |     
 
 
 
