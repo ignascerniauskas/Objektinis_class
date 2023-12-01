@@ -2,6 +2,26 @@
 
 
 int main() {
+   
+    studentas obj1;
+    obj1.setVard("Antanas");
+    obj1.setPav("Antanaitis");
+    obj1.addPazymys(2);
+    obj1.addPazymys(3);
+    obj1.addPazymys(5);
+    obj1.addPazymys(1);
+    obj1.setEgzaminas(6);
+
+    studentas obj2 = obj1;
+    studentas obj3;
+    obj3 = obj1;
+
+    cout<<"Informacija apie obj1 "<<obj1<<endl;
+    cout<<"Informacija apie obj2 "<<obj2<<endl;
+    cout<<"Informacija apie obj3 "<<obj3<<endl;
+    
+    //----------------------
+
     srand(static_cast<unsigned>(time(0)));
     list<studentas> grupe;
     list<studentas> grupe1000, grupe10000, grupe100000, grupe1000000, grupe10000000;
@@ -16,24 +36,22 @@ int main() {
         cout<<"Ar norite generuoti atsitiktinius rezultatus (ar naudoti jau esancius) (T/N): "<<endl;
         cin>>generavimas;
 
-        //matuotiLaika("studentai.txt",grupe1000,1000,moksliukai,varksiukai,pasirinkimas,generavimas);
+        matuotiLaika("studentai.txt",grupe1000,1000,moksliukai,varksiukai,pasirinkimas,generavimas);
         //matuotiLaika("studentai.txt",grupe10000,10000,moksliukai, varksiukai, pasirinkimas,generavimas);
-        matuotiLaika("studentai.txt",grupe100000,100000,moksliukai,varksiukai, pasirinkimas,generavimas);
-        matuotiLaika("studentai.txt",grupe1000000,1000000,moksliukai,varksiukai, pasirinkimas,generavimas);
+        //matuotiLaika("studentai.txt",grupe100000,100000,moksliukai,varksiukai, pasirinkimas,generavimas);
+        //matuotiLaika("studentai.txt",grupe1000000,1000000,moksliukai,varksiukai, pasirinkimas,generavimas);
         //matuotiLaika("studentai.txt",grupe10000000,10000000,moksliukai,varksiukai, pasirinkimas,generavimas);
 
     }
     else{
         cout<<'\n';
-        duomenuIvedimas(grupe);
-        char pasirinkimas;
-        cout << "Jei norite naudoti vidurki, spauskite 'V' arba 'v', jei norite naudoti mediana spauskite 'M' arba 'm': ";
-        cin >> pasirinkimas;
-        bool naudotividurki = (pasirinkimas=='V' || pasirinkimas=='v');
-        rezultatuIsvendimasEkrane(grupe, naudotividurki);
+        duomenuIvedimas_class(grupe);
+        rezultatuIsvendimasEkrane(grupe);
     }
 
 
+
     return 0;
+
 
 }
