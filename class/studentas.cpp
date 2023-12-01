@@ -13,6 +13,25 @@ istream& studentas::readstudentas(istream& is){
     return is;
 }
 
+void duomenuIvedimas_class(list<studentas>& grupe){
+    int stud_skaicius;
+    cout << "Iveskite studentu skaiciu: ";
+    cin >> stud_skaicius;
+    cout << '\n';
+
+    studentas Laik;
+    for (int j = 1; j < stud_skaicius+1; j++)
+    {
+        cout << "Iveskite " << j <<" studento duomenis: "<<endl;
+        cin>>Laik;
+        cout<<'\n';
+        apskaiciuotiVidurki(Laik);
+        grupe.push_back(Laik);
+        Laik.clearPazymiai();
+    }
+
+}
+
 void duomenuIvedimas(list<studentas>& grupe) {
     int stud_skaicius;
     cout << "Iveskite studentu skaiciu: ";
@@ -156,16 +175,14 @@ void duomenuIvedimas(list<studentas>& grupe) {
     }
 }
 
-void rezultatuIsvendimasEkrane(list<studentas>& grupe, bool naudotividurki){
+void rezultatuIsvendimasEkrane(list<studentas>& grupe){
     string kriterijus;
-    if (naudotividurki){kriterijus="Galutinis(Vid.)";}
-    else{kriterijus="Galutinis(Med.)";}
-    cout << left << setw(20) << "Pavarde" << setw(20) << "Vardas" << setw(20) << kriterijus << setw(20)<<"Vieta atmintyje" <<endl;
+    cout << left << setw(20) << "Pavarde" << setw(20) << "Vardas" << setw(20) << "Galutinis" <<endl;
     cout << "-----------------------------------------------------------------------------" << endl;
 
     for (auto& studentas : grupe) {
-        float galutinis = naudotividurki ? studentas.getvidGalutinis() : studentas.getmedGalutinis();
-        cout << setw(20) << studentas.getPav() << setw(20) << studentas.getVard() << setw(20) << fixed << setprecision(2) << galutinis<<setw(20)<<&studentas << endl;
+        apskaiciuotiVidurki(studentas);
+        cout << studentas<<endl;
     }
 }
 
@@ -278,7 +295,7 @@ void isvedimasFaile (list<studentas>& grupe, const string& failoPavadinimas){
     f<<"----------------------------------------------------------------------------"<<endl;
     for (auto& studentas : grupe) {
         apskaiciuotiVidurki(studentas);
-        f<<setw(20)<<studentas.getPav()<<setw(20)<<studentas.getVard()<<setw(20)<<fixed<<setprecision(2)<<studentas.getvidGalutinis()<<endl;
+        f<<studentas<<endl;
     }
     f.close();
 
