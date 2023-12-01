@@ -38,6 +38,34 @@ private:
     int egz;
     float vidGalutinis;
     float medGalutinis;
+    friend void apskaiciuotiMedianaf(studentas stud) {
+        std::list<int> sorted_paz = stud.getPaz();
+        sorted_paz.sort();
+
+        int n = sorted_paz.size();
+        auto iter = sorted_paz.begin();
+        std::advance(iter, n / 2);
+
+        if (n % 2 == 0) {
+            int vidurys1 = *std::prev(iter);
+            int vidurys2 = *iter;
+            stud.setMedGalutinis(0.4 * (vidurys1 + vidurys2) / 2.0 + 0.6 * stud.getEgzaminas());
+        } else {
+            int vidurys = *iter;
+            stud.setMedGalutinis(0.4 * vidurys + 0.6 * stud.getEgzaminas());
+        }
+}
+
+    friend void apskaiciuotiVidurkif(studentas& stud) {
+        float vidurkis = 0;
+        for (int pazymys : stud.getPaz()) {
+            vidurkis += pazymys;
+        }
+        vidurkis /= stud.getPaz().size();
+        double galutinis = 0.4 * vidurkis + 0.6 * stud.getEgzaminas();
+        stud.setvidGalutinis(galutinis);
+    }
+
 
 public:
     // Default
@@ -46,8 +74,34 @@ public:
     istream& readstudentas(istream&);
     void clearPazymiai() { paz.clear(); }
 
-    ~studentas(){}
-    
+    void copyPaz(const list<int>& source){
+        paz = source;
+   }
+
+
+    // II. Copy constructor
+    studentas(const studentas& other){
+        vard = other.vard;
+        pav = other.pav;
+        paz = other.paz;
+        egz = other.egz;
+        vidGalutinis = other.vidGalutinis;
+        medGalutinis = other.medGalutinis;
+    }
+
+    // III. Copy assignment operator
+    studentas& operator=(const studentas& other) {
+        if (this != &other) {
+            vard = other.vard;
+            pav = other.pav;
+            paz = other.paz;
+            egz = other.egz;
+            vidGalutinis = other.vidGalutinis;
+            medGalutinis = other.medGalutinis;
+        }
+        return *this;
+    }
+
     // seterei
     void setVard(const string& v) { vard = v; }
     void setPav(const string& p) { pav = p; }
@@ -65,10 +119,62 @@ public:
     int getEgzaminas() const { return egz; }
     const list<int>& getPaz() const {return paz;}
 
+
+    friend istream& operator>>(istream& is, studentas& student) {
+        cout << "Iveskite studento Varda ir Pavarde: ";
+        is >> student.vard >> student.pav;
+
+        cout << "Iveskite studento pazymius: ";
+        int pazymys;
+        while (is >> pazymys) {
+                    try {
+                        if (pazymys < 0 || pazymys > 10) {
+                            throw runtime_error("Klaida: Pazimys turi buti nuo 0 iki 10.");
+                        }
+                        student.addPazymys(pazymys);
+                    } catch (const exception& e) {
+                        cerr << "Klaida: " << e.what() << endl;
+                    }
+                    if (is.peek() == '\n') {
+                        is.ignore();
+                        break;
+                    }
+                }
+
+        do {
+        cout << "Iveskite egzamino rezultata (nuo 0 iki 10): ";
+        is >> student.egz;
+
+        if (is.fail() || student.egz < 0 || student.egz > 10) {
+            cerr << "Klaida: Egzamino rezultatas turi buti nuo 0 iki 10." << endl;
+            is.clear();
+            }
+        } while (student.egz < 0 || student.egz > 10);
+
+        apskaiciuotiVidurkif(student);
+        return is;
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, studentas& student) {
+        apskaiciuotiVidurkif(student);
+
+        os << left << setw(20) << student.pav<< setw(20) << student.vard<< fixed << setprecision(2)<< setw(5) << student.vidGalutinis;
+
+        return os;
+
+    }
+
+    // I. Destructor
+    ~studentas() {
+        paz.clear();
+        //cout<<"objektas sunaikintas"<<endl;
+    }
+
 };
 
 void duomenuIvedimas(list<studentas>& grupe);
-void rezultatuIsvendimasEkrane(list<studentas>& grupe, bool naudotividurki);
+void duomenuIvedimas_class(list<studentas>& grupe);
+void rezultatuIsvendimasEkrane(list<studentas>& grupe);
 void apskaiciuotiVidurki(studentas& stud);
 void apskaiciuotiMediana(studentas stud);
 void generuotiPazymius(studentas& stud);
@@ -83,5 +189,3 @@ void suskirstymas(list<studentas>& grupe, list<studentas>& moksliukai, list<stud
 void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int stud_skaicius,list<studentas>& moksliukai, list<studentas>& varksiukai, char pasirinkimas, char generavimas);
 
 #endif // STUDENTAS_H
-
-
