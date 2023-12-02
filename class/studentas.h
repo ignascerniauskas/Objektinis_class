@@ -8,8 +8,6 @@
 #include <algorithm>
 #include <chrono>
 
-#ifndef STUDENTAS_H
-#define STUDENTAS_H
 
 using namespace std::chrono;
 
@@ -31,6 +29,7 @@ using std::runtime_error;
 using std::exception;
 
 
+
 class studentas {
 private:
     string vard, pav;
@@ -38,7 +37,16 @@ private:
     int egz;
     float vidGalutinis;
     float medGalutinis;
-    friend void apskaiciuotiMedianaf(studentas stud) {
+
+
+public:
+    // Default
+    studentas() : egz(0), vidGalutinis(0), medGalutinis(0) {}
+    studentas(istream& is);
+    istream& readstudentas(istream&);
+    void clearPazymiai() { paz.clear(); }
+
+    friend void apskaiciuotiMedianaf(studentas& stud) {
         std::list<int> sorted_paz = stud.getPaz();
         sorted_paz.sort();
 
@@ -65,19 +73,6 @@ private:
         double galutinis = 0.4 * vidurkis + 0.6 * stud.getEgzaminas();
         stud.setvidGalutinis(galutinis);
     }
-
-
-public:
-    // Default
-    studentas() : egz(0), vidGalutinis(0), medGalutinis(0) {}
-    studentas(istream& is);
-    istream& readstudentas(istream&);
-    void clearPazymiai() { paz.clear(); }
-
-    void copyPaz(const list<int>& source){
-        paz = source;
-   }
-
 
     // II. Copy constructor
     studentas(const studentas& other){
@@ -167,7 +162,6 @@ public:
     // I. Destructor
     ~studentas() {
         paz.clear();
-        //cout<<"objektas sunaikintas"<<endl;
     }
 
 };
@@ -175,8 +169,6 @@ public:
 void duomenuIvedimas(list<studentas>& grupe);
 void duomenuIvedimas_class(list<studentas>& grupe);
 void rezultatuIsvendimasEkrane(list<studentas>& grupe);
-void apskaiciuotiVidurki(studentas& stud);
-void apskaiciuotiMediana(studentas stud);
 void generuotiPazymius(studentas& stud);
 void generuotiPazymius1(studentas& stud, int nd_sk);
 void generuotiEgzamina(studentas& stud);
@@ -188,4 +180,5 @@ bool palyginti(const string& a, const string& b);
 void suskirstymas(list<studentas>& grupe, list<studentas>& moksliukai, list<studentas>& varksiukai);
 void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int stud_skaicius,list<studentas>& moksliukai, list<studentas>& varksiukai, char pasirinkimas, char generavimas);
 
-#endif // STUDENTAS_H
+
+
