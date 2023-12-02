@@ -2,7 +2,7 @@
 
 
 int main() {
-   
+
     studentas obj1;
     obj1.setVard("Antanas");
     obj1.setPav("Antanaitis");
@@ -19,7 +19,7 @@ int main() {
     cout<<"Informacija apie obj1 "<<obj1<<endl;
     cout<<"Informacija apie obj2 "<<obj2<<endl;
     cout<<"Informacija apie obj3 "<<obj3<<endl;
-    
+
     //----------------------
 
     srand(static_cast<unsigned>(time(0)));
@@ -49,9 +49,6 @@ int main() {
         rezultatuIsvendimasEkrane(grupe);
     }
 
-
-
     return 0;
-
 
 }
