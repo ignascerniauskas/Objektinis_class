@@ -25,7 +25,7 @@ void duomenuIvedimas_class(list<studentas>& grupe){
         cout << "Iveskite " << j <<" studento duomenis: "<<endl;
         cin>>Laik;
         cout<<'\n';
-        apskaiciuotiVidurki(Laik);
+        apskaiciuotiVidurkif(Laik);
         grupe.push_back(Laik);
         Laik.clearPazymiai();
     }
@@ -169,8 +169,8 @@ void duomenuIvedimas(list<studentas>& grupe) {
         cout << '\n';
     }
     for(auto& studentas: grupe){
-        apskaiciuotiMediana(studentas);
-        apskaiciuotiVidurki(studentas);
+        apskaiciuotiMedianaf(studentas);
+        apskaiciuotiVidurkif(studentas);
 
     }
 }
@@ -181,37 +181,8 @@ void rezultatuIsvendimasEkrane(list<studentas>& grupe){
     cout << "-----------------------------------------------------------------------------" << endl;
 
     for (auto& studentas : grupe) {
-        apskaiciuotiVidurki(studentas);
         cout << studentas<<endl;
     }
-}
-
-void apskaiciuotiVidurki(studentas& stud) {
-        float vidurkis = 0;
-        for (int pazymys : stud.getPaz()) {
-            vidurkis += pazymys;
-        }
-        vidurkis /= stud.getPaz().size();
-        double galutinis = 0.4 * vidurkis + 0.6 * stud.getEgzaminas();
-        stud.setvidGalutinis(galutinis);
-}
-
-void apskaiciuotiMediana(studentas stud) {
-        std::list<int> sorted_paz = stud.getPaz();
-        sorted_paz.sort();
-
-        int n = sorted_paz.size();
-        auto iter = sorted_paz.begin();
-        std::advance(iter, n / 2);
-
-        if (n % 2 == 0) {
-            int vidurys1 = *std::prev(iter);
-            int vidurys2 = *iter;
-            stud.setMedGalutinis(0.4 * (vidurys1 + vidurys2) / 2.0 + 0.6 * stud.getEgzaminas());
-        } else {
-            int vidurys = *iter;
-            stud.setMedGalutinis(0.4 * vidurys + 0.6 * stud.getEgzaminas());
-        }
 }
 
 void skaitytiFaila(const string& failopav, list<studentas>& grupe) {
@@ -250,8 +221,8 @@ void skaitytiFaila(const string& failopav, list<studentas>& grupe) {
         }
     }
     for(auto& studentas : grupe){
-        apskaiciuotiVidurki(studentas);
-        apskaiciuotiMediana(studentas);
+        apskaiciuotiVidurkif(studentas);
+        apskaiciuotiMedianaf(studentas);
     }
 
     failas.close();
@@ -294,7 +265,6 @@ void isvedimasFaile (list<studentas>& grupe, const string& failoPavadinimas){
     f<<left<<setw(20)<<"Pavarde"<<setw(20)<<"Vardas"<<setw(20)<<"Galutinis(Vid.)"<<endl;
     f<<"----------------------------------------------------------------------------"<<endl;
     for (auto& studentas : grupe) {
-        apskaiciuotiVidurki(studentas);
         f<<studentas<<endl;
     }
     f.close();
@@ -335,12 +305,9 @@ void irasytiIFaila(const list<studentas>& grupe, const string& failoPavadinimas)
 void suskirstymas(list<studentas>& grupe, list<studentas>& moksliukai, list<studentas>& varksiukai) {
     moksliukai.clear();
     varksiukai.clear();
-    for (auto& studentas : grupe) {
-        apskaiciuotiVidurki(studentas);
-    }
 
     for (auto& studentas : grupe) {
-        apskaiciuotiVidurki(studentas);
+        apskaiciuotiVidurkif(studentas);
         if (studentas.getvidGalutinis() <= 5) {
             varksiukai.push_back(studentas);
         } else {
@@ -394,6 +361,9 @@ void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int st
     auto trukmeNuskaitymas = duration<double>(pabaigaNuskaitymas - pradziaNuskaitymas);
     cout <<std::to_string(stud_skaicius)<<" studentu nuskaitymo laikas: " << trukmeNuskaitymas.count() << " s" << endl;
 
+     for (auto& studentas : grupe) {
+        apskaiciuotiVidurkif(studentas);
+     }
 
     auto pradziaRikiavimas = high_resolution_clock::now();
     if (toupper(pasirinkimas) == 'V') {
@@ -434,5 +404,4 @@ void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int st
     cout<<"Bendras darbo laikas prie failo: "<<trukmeBendras.count()<<" s"<<endl;
     cout <<"-----------------------------------------------------------"<<endl;
 }
-
 
