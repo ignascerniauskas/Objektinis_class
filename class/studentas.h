@@ -65,14 +65,19 @@ public:
 }
 
     friend void apskaiciuotiVidurkif(studentas& stud) {
-        float vidurkis = 0;
+    float vidurkis = 0;
+    int count = stud.getPaz().size();  // Get the size of the list
+
+    if (count > 0) {
         for (int pazymys : stud.getPaz()) {
             vidurkis += pazymys;
         }
-        vidurkis /= stud.getPaz().size();
-        double galutinis = 0.4 * vidurkis + 0.6 * stud.getEgzaminas();
-        stud.setvidGalutinis(galutinis);
+        vidurkis /= count;  // Divide by the size, but make sure it's not zero
     }
+
+    double galutinis = 0.4 * vidurkis + 0.6 * stud.getEgzaminas();
+    stud.setvidGalutinis(galutinis);
+}
 
     // II. Copy constructor
     studentas(const studentas& other){
@@ -115,45 +120,13 @@ public:
     const list<int>& getPaz() const {return paz;}
 
 
-    friend istream& operator>>(istream& is, studentas& student) {
-        cout << "Iveskite studento Varda ir Pavarde: ";
-        is >> student.vard >> student.pav;
-
-        cout << "Iveskite studento pazymius: ";
-        int pazymys;
-        while (is >> pazymys) {
-                    try {
-                        if (pazymys < 0 || pazymys > 10) {
-                            throw runtime_error("Klaida: Pazimys turi buti nuo 0 iki 10.");
-                        }
-                        student.addPazymys(pazymys);
-                    } catch (const exception& e) {
-                        cerr << "Klaida: " << e.what() << endl;
-                    }
-                    if (is.peek() == '\n') {
-                        is.ignore();
-                        break;
-                    }
-                }
-
-        do {
-        cout << "Iveskite egzamino rezultata (nuo 0 iki 10): ";
-        is >> student.egz;
-
-        if (is.fail() || student.egz < 0 || student.egz > 10) {
-            cerr << "Klaida: Egzamino rezultatas turi buti nuo 0 iki 10." << endl;
-            is.clear();
-            }
-        } while (student.egz < 0 || student.egz > 10);
-
-        apskaiciuotiVidurkif(student);
-        return is;
-    }
+    friend istream& operator>>(istream& is, studentas& student);
 
     friend std::ostream& operator<<(std::ostream& os, studentas& student) {
         apskaiciuotiVidurkif(student);
+        apskaiciuotiMedianaf(student);
 
-        os << left << setw(20) << student.pav<< setw(20) << student.vard<< fixed << setprecision(2)<< setw(5) << student.vidGalutinis;
+        os << left << setw(20) << student.pav<< setw(20) << student.vard<< fixed << setprecision(2)<< setw(20) << student.vidGalutinis;
 
         return os;
 
@@ -166,7 +139,6 @@ public:
 
 };
 
-void duomenuIvedimas(list<studentas>& grupe);
 void duomenuIvedimas_class(list<studentas>& grupe);
 void rezultatuIsvendimasEkrane(list<studentas>& grupe);
 void generuotiPazymius(studentas& stud);
