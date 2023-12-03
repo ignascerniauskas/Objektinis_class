@@ -13,38 +13,13 @@ istream& studentas::readstudentas(istream& is){
     return is;
 }
 
-void duomenuIvedimas_class(list<studentas>& grupe){
-    int stud_skaicius;
-    cout << "Iveskite studentu skaiciu: ";
-    cin >> stud_skaicius;
-    cout << '\n';
+std::istream& operator>>(istream& is, studentas& student){
 
-    studentas Laik;
-    for (int j = 1; j < stud_skaicius+1; j++)
-    {
-        cout << "Iveskite " << j <<" studento duomenis: "<<endl;
-        cin>>Laik;
-        cout<<'\n';
-        apskaiciuotiVidurkif(Laik);
-        grupe.push_back(Laik);
-        Laik.clearPazymiai();
-    }
-
-}
-
-void duomenuIvedimas(list<studentas>& grupe) {
-    int stud_skaicius;
-    cout << "Iveskite studentu skaiciu: ";
-    cin >> stud_skaicius;
-    cout << '\n';
-
-    studentas Laik;
-    for (int j = 0; j < stud_skaicius; j++) {
-        cout << "Iveskite " << j + 1 << "-ojo studento varda ir pavarde: ";
+        cout << "Iveskite studento varda ir pavarde: ";
         string vard,pav;
         cin >> vard >> pav;
-        Laik.setVard(vard);
-        Laik.setPav(pav);
+        student.setVard(vard);
+        student.setPav(pav);
 
         char atsakymas;
         do {
@@ -77,13 +52,12 @@ void duomenuIvedimas(list<studentas>& grupe) {
                         }
                     } while (nd_sk <= 0);
 
-                    generuotiPazymius1(Laik, nd_sk);
+                    generuotiPazymius1(student, nd_sk);
                 } else {
-                    generuotiPazymius(Laik);
+                    generuotiPazymius(student);
                 }
             } catch (const runtime_error& e) {
                 cerr << "Klaida: " << e.what() << endl;
-                continue; // Pereiti prie kito studento įvedimo
             }
         } else {
             char zinome;
@@ -114,7 +88,7 @@ void duomenuIvedimas(list<studentas>& grupe) {
                         if (k < 0 || k > 10) {
                             throw runtime_error("Klaida: Pazimys turi buti nuo 0 iki 10.");
                         }
-                        Laik.addPazymys(k);
+                        student.addPazymys(k);
                     } catch (const exception& e) {
                         cerr << "Klaida: " << e.what() << endl;
                         i--;
@@ -128,7 +102,7 @@ void duomenuIvedimas(list<studentas>& grupe) {
                         if (pazymys < 0 || pazymys > 10) {
                             throw runtime_error("Klaida: Pazimys turi buti nuo 0 iki 10.");
                         }
-                        Laik.addPazymys(pazymys);
+                        student.addPazymys(pazymys);
                     } catch (const exception& e) {
                         cerr << "Klaida: " << e.what() << endl;
                     }
@@ -158,22 +132,36 @@ void duomenuIvedimas(list<studentas>& grupe) {
                     cerr << "Klaida: Egzamino rezultatas turi buti nuo 0 iki 10." << endl;
                 }
             } while (egz_rezultatas < 0 || egz_rezultatas > 10);
-            Laik.setEgzaminas(egz_rezultatas);
-            grupe.push_back(Laik);
+            student.setEgzaminas(egz_rezultatas);
         } else {
-            generuotiEgzamina(Laik);
-            grupe.push_back(Laik);
+            generuotiEgzamina(student);
         }
 
-        Laik.clearPazymiai();
-        cout << '\n';
-    }
-    for(auto& studentas: grupe){
-        apskaiciuotiMedianaf(studentas);
-        apskaiciuotiVidurkif(studentas);
+        apskaiciuotiVidurkif(student);
 
-    }
+        cout << '\n';
+
 }
+
+void duomenuIvedimas_class(list<studentas>& grupe){
+    int stud_skaicius;
+    cout << "Iveskite studentu skaiciu: ";
+    cin >> stud_skaicius;
+    cout << '\n';
+
+    studentas Laik;
+    for (int j = 1; j < stud_skaicius+1; j++)
+    {
+        cout << "Iveskite " << j <<" studento duomenis: "<<endl;
+        cin>>Laik;
+        cout<<'\n';
+        apskaiciuotiVidurkif(Laik);
+        grupe.push_back(Laik);
+        Laik.clearPazymiai();
+    }
+
+}
+
 
 void rezultatuIsvendimasEkrane(list<studentas>& grupe){
     string kriterijus;
