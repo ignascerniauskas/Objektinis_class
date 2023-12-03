@@ -3,6 +3,15 @@
 
 int main() {
 
+    //zmogus jonas;   //negalima sugurti objekto is klases zmogus
+
+    studentas s;
+
+    s.setVard("Jonas");
+    s.setPav("Jonaitis");
+    s.displayInfo();
+    cout<<"-------------------"<<endl;
+
     studentas obj1;
     obj1.setVard("Antanas");
     obj1.setPav("Antanaitis");
@@ -16,9 +25,9 @@ int main() {
     studentas obj3;
     obj3 = obj1;
 
-    cout<<"Informacija apie obj1 "<<obj1<<endl;
-    cout<<"Informacija apie obj2 "<<obj2<<endl;
-    cout<<"Informacija apie obj3 "<<obj3<<endl;
+    cout<<"Informacija apie obj1: "<<obj1<<endl;
+    cout<<"Informacija apie obj2: "<<obj2<<endl;
+    obj3.displayInfo();
 
     //----------------------
 
@@ -49,6 +58,9 @@ int main() {
         rezultatuIsvendimasEkrane(grupe);
     }
 
+
+
     return 0;
 
 }
+
