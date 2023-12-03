@@ -45,6 +45,8 @@ public:
     studentas(istream& is);
     istream& readstudentas(istream&);
     void clearPazymiai() { paz.clear(); }
+    void clearlast() {paz.pop_back();}
+
 
     friend void apskaiciuotiMedianaf(studentas& stud) {
         std::list<int> sorted_paz = stud.getPaz();
