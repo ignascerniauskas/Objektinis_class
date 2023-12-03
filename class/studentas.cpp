@@ -225,7 +225,6 @@ void skaitytiFaila(const string& failopav, list<studentas>& grupe) {
 
     failas.close();
 }
-
 //atsitiktinis pazymiu generavimas
 void generuotiPazymius(studentas& stud){
     stud.clearPazymiai();
@@ -283,7 +282,7 @@ void generuotiStudentuSarasa(list<studentas>& grupe, int studentuSkaicius) {
 }
 
 //studentu duomenu irasymo i failla funkcija
-void irasytiIFaila(const list<studentas>& grupe, const string& failoPavadinimas) {
+void irasytiIFaila( list<studentas>& grupe, const string& failoPavadinimas) {
     ofstream outFile(failoPavadinimas);
     outFile<<left<<setw(17)<<"Pavarde"<<setw(17)<<"Vardas"<<setw(17)<<"ND1"<<setw(17)<<"ND2"<<setw(17)<<"ND3"<<setw(17)<<"ND4"<<setw(17)<<"ND5"<<setw(17)<<"Egz."<<endl;
     if (outFile.is_open()) {
@@ -359,12 +358,13 @@ void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int st
     auto trukmeNuskaitymas = duration<double>(pabaigaNuskaitymas - pradziaNuskaitymas);
     cout <<std::to_string(stud_skaicius)<<" studentu nuskaitymo laikas: " << trukmeNuskaitymas.count() << " s" << endl;
 
+
     auto pradziaRikiavimas = high_resolution_clock::now();
     if (toupper(pasirinkimas) == 'V') {
         grupe.sort([](const studentas& a, const studentas& b) { return palyginti(a.getVard(),b.getVard()) ;});
     }
     else if (toupper(pasirinkimas) == 'P') {
-        grupe.sort([](const studentas& a, const studentas& b) { return palyginti(a.getVard(),b.getVard()) ;});
+        grupe.sort([](const studentas& a, const studentas& b) { return palyginti(a.getPav(),b.getPav()) ;});
     }
     else if (toupper(pasirinkimas) == 'G') {
        grupe.sort([](const studentas& a, const studentas& b) { return a.getvidGalutinis() < b.getvidGalutinis(); });
@@ -398,4 +398,7 @@ void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int st
     cout<<"Bendras darbo laikas prie failo: "<<trukmeBendras.count()<<" s"<<endl;
     cout <<"-----------------------------------------------------------"<<endl;
 }
+
+
+
 
