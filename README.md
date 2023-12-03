@@ -1,5 +1,31 @@
 # Objektinis_prog.
 
+V1.2 versija:
+Šioje versijoje informacija apie studentą yra saugoma class studentas. Visi studentai yra patalpinami į list<studentas> grupe. Taip pat yra matuojamas laikas prie dviejų dydžių failų (100000 studentų ir 1000000 studentų), studentų sąrašas yra sugeneruojamas atsitiktine tvarka, tada yra įrašomas į failą, iš failo nuskaitomas, suskaidomas į dvi grupes: list<studentas> varksiukai ir list<studentas> moksliukai, (suskirstymas – grupe yra padalinama į du list‘us varksiukai ir moksliukai), ir galiausiai moksliuku ir varksiuku list‘ai yra įrašomi į failus ir išrikiuojamai pagal vartotojo pasirinktą parametrą (Vardą, Pavardę arba Galutinį balą). Jei nenorime dirbti prie failų laiko matavimo, galime įvesti duomenis rankiniu būdu, tada rezultatas yra išvedamas į ekraną. Rankinis įvedimas vyksta taip: apie kiekvieną studentą įvedame: vardą ir pavardę. Pasirenkame ar norime generuoti namų darbų rezultatus atsitiktine tvarka, jei taip įvedame studento namų darbų skaičių, nes tiek atsitiktinių rezultatų bus sugeneruota. Jei nežinome namų darbų skaičiaus jis sugeneruojamas atsitiktinai. Jei generuoti rezultatų nenorime, įvedame studento namų darbų skaičių, ir kiekvieno namų darbo rezulatą, jei namų darbų skaičiaus nežinome įvedinėjame namų darbų rezultatus iki pirmo ‘Enter’. Galiausiai pasirenkame ar norime generuoti egzamino rezultatą atsitiktine tvarka, jei ne ji įvedame.  Taip pat šioje versijoje, class studentas palaiko „The rule of three“ (t.y. class studentas turi: destruktorių, copy constructorių ir copy assignment operatorių) ir įvesties >> ir išvesties << operatorius.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Testavimų laikas su std::vector<>:
 | Testavimas                          | 1000         | 10000        | 100000       | 1000000       | 10000000       |
 |-------------------------------------|--------------|--------------|--------------|---------------|----------------|
