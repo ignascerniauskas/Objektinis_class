@@ -182,33 +182,43 @@ void skaitytiFaila(const string& failopav, list<studentas>& grupe) {
     }
 
     string stulpeliuPavadinimai;
-    getline(failas, stulpeliuPavadinimai);
+    getline(failas, stulpeliuPavadinimai); // Perskaitome stulpeliu antrastes
+
+    studentas Laik;
 
     string eilute;
     while (getline(failas, eilute)) {
         std::istringstream iss(eilute);
 
-        string pav, vard;
-        int nd1, nd2, nd3, nd4, nd5, egz;
-
-        if (iss >> pav >> vard >> nd1 >> nd2 >> nd3 >> nd4 >> nd5 >> egz) {
-            studentas Laik;
-
-            Laik.setPav(pav);
+        string vard, pav;
+        if (iss >> vard >> pav) {
             Laik.setVard(vard);
-            Laik.addPazymys(nd1);
-            Laik.addPazymys(nd2);
-            Laik.addPazymys(nd3);
-            Laik.addPazymys(nd4);
-            Laik.addPazymys(nd5);
-            Laik.setEgzaminas(egz);
+            Laik.setPav(pav);
 
-            grupe.push_back(Laik);
+            int pazymys;
+            while (iss >> pazymys) {
+                if (pazymys >= 0 && pazymys <= 10) {
+                    Laik.addPazymys(pazymys);
+                } else {
+                    cerr << "Netinkamas pazymys: " << pazymys << endl;
+                    return;
+                }
+            }
+
+            if (!Laik.getPaz().empty()) {
+                // Paskutinis skaicius yra egzamino rezultatas
+                Laik.setEgzaminas(Laik.getPaz().back());
+                Laik.clearlast(); // Pasaliname egzamino rezultata is pazymiu
+                grupe.push_back(Laik);
+            }
+            Laik.clearPazymiai();
         } else {
-            cerr << "Netinkamas failo formatas eiluteje: " << eilute << endl;
+            cerr << "Netinkamas failo formatas eiluteje (vardas, pavarde): " << eilute << endl;
         }
+
     }
-    for(auto& studentas : grupe){
+
+    for (auto& studentas : grupe) {
         apskaiciuotiVidurkif(studentas);
         apskaiciuotiMedianaf(studentas);
     }
@@ -348,10 +358,6 @@ void matuotiLaika(const string& failoPavadinimas, list<studentas>& grupe, int st
     auto pabaigaNuskaitymas = high_resolution_clock::now();
     auto trukmeNuskaitymas = duration<double>(pabaigaNuskaitymas - pradziaNuskaitymas);
     cout <<std::to_string(stud_skaicius)<<" studentu nuskaitymo laikas: " << trukmeNuskaitymas.count() << " s" << endl;
-
-     for (auto& studentas : grupe) {
-        apskaiciuotiVidurkif(studentas);
-     }
 
     auto pradziaRikiavimas = high_resolution_clock::now();
     if (toupper(pasirinkimas) == 'V') {
