@@ -36,12 +36,12 @@ protected:
 
 public:
     // Getters
-    virtual string getVard() const {return vard;}
-    virtual string getPav() const {return pav;}
+    virtual string getVard() const = 0;
+    virtual string getPav() const = 0;
 
-    // Setters
-    virtual void setVard(const string& v) {vard = v;}
-    virtual void setPav(const string& p) {pav = p;}
+    // setters
+    virtual void setVard(const string& v) = 0;
+    virtual void setPav(const string& p) = 0;
 
     virtual void displayInfo() const = 0;
     virtual ~zmogus() = default;
