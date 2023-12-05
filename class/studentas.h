@@ -116,6 +116,8 @@ public:
     }
 
     // Setters
+    void setVard(const string& v) override { vard = v; }
+    void setPav(const string& p) override { pav = p; }
     void setEgzaminas(int egzaminas) { egz = egzaminas; }
     void setvidGalutinis(float vid) { vidGalutinis = vid; }
     void setMedGalutinis(float med) { medGalutinis = med; }
@@ -123,6 +125,8 @@ public:
 
 
     // Getters
+    string getVard() const override { return vard; }
+    string getPav() const override { return pav; }
     float getvidGalutinis() const { return vidGalutinis; }
     float getmedGalutinis() const { return medGalutinis; }
     int getEgzaminas() const { return egz; }
@@ -138,6 +142,10 @@ public:
 
         return os;
 
+    }
+
+    ~studentas() override {
+        paz.clear();
     }
 
 
