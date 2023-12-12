@@ -37,7 +37,7 @@ int main() {
     list<studentas> moksliukai, varksiukai;
 
     char arMatuoti,pasirinkimas, generavimas;
-    cout<<"Ar norite matuoti laika (T/N): "<<endl;
+    cout<<"Ar norite matuoti laika (T/N): ";
     cin>>arMatuoti;
     if (toupper(arMatuoti)=='T'){
         cout<<"Pasirinkite rusiavimo tvarka: (Vardas-V/v, Pavarde-P/p, Galutinis balas- G/g)"<<endl;
@@ -54,8 +54,29 @@ int main() {
     }
     else{
         cout<<'\n';
-        duomenuIvedimas_class(grupe);
-        rezultatuIsvendimasEkrane(grupe);
+        char ivedimas, isvedimas;
+        string failo_pav;
+        cout<<"Kokiu budu noretumete ivesti duomenis: (Rankanis-R, Is failo-F)"<<endl;
+        cin>>ivedimas;
+        if(toupper(ivedimas)=='R'){
+            duomenuIvedimas_class(grupe);
+        }
+        else if (toupper(ivedimas)=='F'){
+            cout<<"Iveskite failo pavadinima: ";
+            cin>>failo_pav;
+            skaitytiFaila(failo_pav,grupe);
+        }
+
+        cout<<"Kokiu budu noretumete gauti rezultatus: (Ekrane-E, Faile-F) ";
+        cin>>isvedimas;
+        if(toupper(isvedimas)=='E'){
+            rezultatuIsvendimasEkrane(grupe);
+        }
+        else{
+            isvedimasFaile(grupe,"rez.txt");
+            cout<<"Duomenys isaugoti faile 'rez.txt'"<<endl;
+        }
+
     }
 
 
