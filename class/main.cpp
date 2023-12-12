@@ -16,13 +16,11 @@ int main() {
         cin>>pasirinkimas;
         cout<<"Ar norite generuoti atsitiktinius rezultatus (ar naudoti jau esancius) (T/N): "<<endl;
         cin>>generavimas;
+        int n;
+        cout<<"Iveskite studentu skaiciu: ";
+        cin>>n;
 
-        matuotiLaika("studentai.txt",grupe1000,1000,moksliukai,varksiukai,pasirinkimas,generavimas);
-        //matuotiLaika("studentai.txt",grupe10000,10000,moksliukai, varksiukai, pasirinkimas,generavimas);
-        //matuotiLaika("studentai.txt",grupe100000,100000,moksliukai,varksiukai, pasirinkimas,generavimas);
-        //matuotiLaika("studentai.txt",grupe1000000,1000000,moksliukai,varksiukai, pasirinkimas,generavimas);
-        //matuotiLaika("studentai.txt",grupe10000000,10000000,moksliukai,varksiukai, pasirinkimas,generavimas);
-
+        matuotiLaika("studentai.txt",grupe1000,n,moksliukai,varksiukai,pasirinkimas,generavimas);
     }
     else{
         cout<<'\n';
