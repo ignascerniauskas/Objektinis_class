@@ -7,6 +7,8 @@
 #include <cstdlib>
 #include <algorithm>
 #include <chrono>
+#include <sstream>
+
 
 #ifndef STUDENTAS_H
 #define STUDENTAS_H
@@ -51,8 +53,8 @@ class studentas : public zmogus {
 private:
     list<int> paz;
     int egz;
-    float vidGalutinis;
-    float medGalutinis;
+    double vidGalutinis;
+    double medGalutinis;
 
 
 
@@ -76,7 +78,7 @@ public:
         if (n % 2 == 0) {
             int vidurys1 = *std::prev(iter);
             int vidurys2 = *iter;
-            stud.setMedGalutinis(0.4 * (vidurys1 + vidurys2) / 2.0 + 0.6 * stud.getEgzaminas());
+            stud.setMedGalutinis(0.4 * (static_cast<long long>(vidurys1) + vidurys2) / 2.0 + 0.6 * stud.getEgzaminas());
         } else {
             int vidurys = *iter;
             stud.setMedGalutinis(0.4 * vidurys + 0.6 * stud.getEgzaminas());
@@ -119,16 +121,16 @@ public:
     void setVard(const string& v) override { vard = v; }
     void setPav(const string& p) override { pav = p; }
     void setEgzaminas(int egzaminas) { egz = egzaminas; }
-    void setvidGalutinis(float vid) { vidGalutinis = vid; }
-    void setMedGalutinis(float med) { medGalutinis = med; }
+    void setvidGalutinis(double vid) { vidGalutinis = vid; }
+    void setMedGalutinis(double med) { medGalutinis = med; }
     void addPazymys(int pazymys) { paz.push_back(pazymys); }
 
 
     // Getters
     string getVard() const override { return vard; }
     string getPav() const override { return pav; }
-    float getvidGalutinis() const { return vidGalutinis; }
-    float getmedGalutinis() const { return medGalutinis; }
+    double getvidGalutinis() const { return vidGalutinis; }
+    double getmedGalutinis() const { return medGalutinis; }
     int getEgzaminas() const { return egz; }
     const list<int>& getPaz() const {return paz;}
 
