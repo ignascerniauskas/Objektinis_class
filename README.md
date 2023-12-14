@@ -1,5 +1,14 @@
 # Objektinis_prog.
 
+v3 release:
+![image](https://github.com/ignascerniauskas/Objektinis_class/assets/145258320/81d70f8e-afd9-49f9-957f-8c62dfe99050)
+![image](https://github.com/ignascerniauskas/Objektinis_class/assets/145258320/4f2cecfc-1ffb-4e73-8bb5-cc741f9924f3)
+
+
+
+
+
+
 v2 release:
 Tai yra galutinė versija, šioje versijoje informacija apie studentą yra saugoma class studentas. Visi studentai yra patalpinami į list<studentas> grupe. Taip pat yra matuojamas laikas prie failų su skirtingu studentų skaičiumi, studentų sarašas yra sugeneruojamas atsitiktine tvarka, tada yra įrašomas į failą, iš failo nuskaitomas, suskaidomas į dvi grupes: list<studentas> varksiukai ir list<studentas> moksliukai, (suskirstymas – grupe yra padalinama į du list‘us varksiukai ir moksliukai), ir galiausiai moksliuku ir varksiuku list‘ai yra įrašomi į failus ir išrikiuojamai pagal vartotojo pasirinktą parametrą (Vardą, Pavardę arba Galutinį balą). Jei nenorime dirbti prie failų laiko matavimo, galime įvesti duomenis rankiniu būdu arba nuskaityti iš failo (nurodant failo pavadinimą), tada rezultatas yra išvedamas į ekraną arba failą. Rankinis įvedimas vyksta taip: apie kiekvieną studentą įvedame: vardą ir pavardę. Pasirenkame ar norime generuoti namų darbų rezultatus atsitiktine tvarka, jei taip įvedame studento namų darbų skaičiu, nes tiek atsitiktinių rezultatų bus sugeneruota. Jei nežinome namų darbų skaičiaus jis sugeneruojamas atsitiktinai. Jei generuoti rezultatų nenorime, įvedame student namų darbų skaičių, ir kiekvieno namų darbo rezulata, jei namų darbų skaičiaus nežinome įvedinejame namų darbų rezultatus iki pirmo ‘Enter’. Galiausiai pasirenkame ar norime generuoti egzamino rezultatą atsitiktine tvarka, jei ne ji įvedame.  Taip pat šioje versijoje, class studentas palaiko „The rule of three“ (t.y. class studentas turi: destruktorių, copy constructorių ir copy assignment operatorių) ir įvesties >> ir išvesties << operatorius. Be to šioje versijoje class studentas yra išvestine klasė iš abstrakčios class zmogus. 
 
