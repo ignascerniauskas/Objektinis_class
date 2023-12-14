@@ -3,7 +3,7 @@
 v3 release:
 ![image](https://github.com/ignascerniauskas/Objektinis_class/assets/145258320/81d70f8e-afd9-49f9-957f-8c62dfe99050)
 ![image](https://github.com/ignascerniauskas/Objektinis_class/assets/145258320/4f2cecfc-1ffb-4e73-8bb5-cc741f9924f3)
-![image](https://github.com/ignascerniauskas/Objektinis_class/assets/145258320/d7860ef9-ff38-4932-82af-8a1316cb5944)
+![image](https://github.com/ignascerniauskas/Objektinis_class/assets/145258320/1557a70e-fe07-4dd1-b993-3afca5160ac6)
 ![image](https://github.com/ignascerniauskas/Objektinis_class/assets/145258320/1fc2bab8-8272-4da1-afb5-14ab963c6846)
 
 
